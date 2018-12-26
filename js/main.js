@@ -13,6 +13,7 @@ var gameSettings = {
     downKey: './assets/view/downKey.png',
     leftKey: './assets/view/leftKey.png',
     rightKey: './assets/view/rightKey.png',
+    blueArrow: './assets/view/blueArrow.png',
     velocity: 1,
     gameWidth: 800,
     gameHeight: 600
