@@ -14,6 +14,8 @@ var gameSettings = {
     leftKey: './assets/view/leftKey.png',
     rightKey: './assets/view/rightKey.png',
     blueArrow: './assets/view/blueArrow.png',
+    background: './assets/view/background.jpg',
+    tutorialArrow: './assets/view/arrowInfo.png',
     velocity: 1,
     gameWidth: 800,
     gameHeight: 600
@@ -23,4 +25,4 @@ game.state.add('menu', demo.menu);
 game.state.add('demoMode', demo.demoMode);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
-game.state.start('instructions');
+game.state.start('menu');

@@ -176,7 +176,6 @@ demo.playGame.prototype = {
         fade = true;
       }, 4000);
     };
-    start();
 
     function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*/
       canMove = false;
