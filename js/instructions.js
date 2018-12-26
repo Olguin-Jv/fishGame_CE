@@ -38,6 +38,7 @@ demo.instructions.prototype = {
 
         this.titleStyle = { fontSize: '40px', fontWeight: 'bold', font: 'Montserrat' }
         this.txtStyle = { fontSize: '24px', font: 'Montserrat' };
+        this.buttonStyle = { fontSize: '24px', font: 'Montserrat' };
 
         title = this.add.text(155, 60, this.titulo, { fontSize: '40px', fontWeight: 'bold', font: 'Montserrat' });
         title.alpha = 0;
@@ -93,6 +94,13 @@ demo.instructions.prototype = {
         arrowUp.angle = -90;
         arrowUp.alpha = 0;
 
+        arrowLeft = game.add.image(game.world.centerX + 250, 140, 'blueArrow');
+        arrowLeft.anchor.setTo(.5, .5);
+        arrowLeft.scale.setTo(.1);
+        // arrowLeft.angle = -90;
+        arrowLeft.alpha = 0;
+
+
         fish = this.add.sprite(game.world.centerX + 225, game.world.centerY + 20, 'fish');
         fish.anchor.setTo(.5, .5);
         fish.scale.setTo(.6);
@@ -113,9 +121,19 @@ demo.instructions.prototype = {
         this.anterior.scale.setTo(.3);
         this.anterior.angle = -180;
 
-        this.homeButton = this.add.button(game.world.centerX, 550, 'homeButton', backToMenu);
+        this.homeButton = this.add.button(game.world.centerX -125, 550, 'homeButton', backToMenu);
         this.homeButton.anchor.setTo(.5, .5);
         this.homeButton.scale.setTo(.8);
+        this.add.text(game.world.centerX -125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5,.5);
+
+        this.demoButton = this.add.button(game.world.centerX +125, 550, 'homeButton', goDemoMode);
+        this.demoButton.anchor.setTo(.5, .5);
+        this.demoButton.scale.setTo(.8);
+        this.add.text(game.world.centerX +125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5,.5)
+
+        function goDemoMode(){
+            game.state.start('demoMode');
+        };
 
         function prevPage() {
 
@@ -136,25 +154,33 @@ demo.instructions.prototype = {
                     fadeOut(keyDown);
                     fadeOut(keyLeft);
                     fadeOut(keyRight);
+
+                    pulseArrowUp.pause();
                     fadeOut(arrowUp);
+                    
                     pageNum--;
                     break;
                 case 3:
                     fadeIn(texto2, 0);
-                    fadeIn(keyUp, 0);
-                    fadeIn(keyDown, 0);
-                    fadeIn(keyLeft, 0);
-                    fadeIn(keyRight, 0);
                     keyUp.scale.setTo(.7);
-                    pressButton(keyUp, .6, 0);
+                    rightKeyPressed.pause();
+                    upKeyPressed.start();
+                    upKeyPressed.resume();
                     fadeIn(arrowUp);
-                    pressButton(arrowUp, .105, 3000);
+                    pressButton(arrowUp, .15, 0);
                     fadeIn(fish);
-                    fadeOut(fish2);
+                    orangeFishToRight.pause();
+                    orangeFishOut.pause();
+                    orangeFishIn.pause();
+                    fadeOutFish2.start();
                     fadeOut(texto3);
+
+                    fadeOut(arrowLeft);// ARROW LEFT OUT
+                    pulseArrowLeft.pause();
+
                     pageNum--;
                     break;
-                
+
                 default:
                     break;
             }
@@ -181,21 +207,34 @@ demo.instructions.prototype = {
                     fadeIn(keyDown, 0);
                     fadeIn(keyLeft, 0);
                     fadeIn(keyRight, 0);
-                    pressButton(keyUp, .6, 0);
+
+                    upKeyPressed.start();
+                    upKeyPressed.resume();
+
                     fadeIn(arrowUp);
-                    pressButton(arrowUp, .105, 3000);
+                    pulseArrowUp.start();
+                    pulseArrowUp.resume();
+                    // pressButton(arrowUp, .15, 0);
                     pageNum++;
                     break;
                 case 2:
                     fadeOut(texto2);
-                    fadeOut(keyUp);
-                    fadeOut(keyDown);
-                    fadeOut(keyLeft);
-                    fadeOut(keyRight);
+                    pulseArrowUp.pause();
                     fadeOut(arrowUp);
                     fadeOut(fish);
+                    upKeyPressed.pause();
+                    rightKeyPressed.start();
+                    rightKeyPressed.resume();
                     fish2In.start();
+                    orangeFishToRight.resume();
+                    orangeFishOut.resume();
+                    orangeFishIn.resume();
                     fadeIn(texto3);
+
+                    fadeIn(arrowLeft);//ARROW LEFT IN
+                    pulseArrowLeft.start();
+                    pulseArrowLeft.resume();
+
                     pageNum++
                     break;
                 case 3:
@@ -224,6 +263,13 @@ demo.instructions.prototype = {
         function pressButton(elem, scaleFx, delay) {
             var elemPressed = game.add.tween(elem.scale).to({ x: scaleFx, y: scaleFx }, 750, 'Linear', true, delay, -1, true);
         };
+        var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
+
+        var rightKeyPressed = game.add.tween(keyRight.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
+
+        var pulseArrowUp = game.add.tween(arrowUp.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
+
+        var pulseArrowLeft = game.add.tween(arrowLeft.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
 
 
         function fadeIn(elem, delay) {
@@ -234,27 +280,33 @@ demo.instructions.prototype = {
             var elemOut = game.add.tween(elem).to({ alpha: 0, x: '+25' }, 250, 'Linear', true, 0, 0, false);
         }
 
+        var fadeOutFish2 = game.add.tween(fish2).to({ alpha: 0, x: '+25' }, 250, 'Linear', false, 0, 0, false);
+        fadeOutFish2.onComplete.add(fadeFish2, this);
+        function fadeFish2(){
+            fish2.x = game.world.centerX + 225;
+        }
 
         var fish2In = game.add.tween(fish2).to({ alpha: 1, x: '-25' }, 250, 'Linear', false, 0, 0, false);
         fish2In.onComplete.add(startAnimation, this);
-        function startAnimation () {
+        function startAnimation() {
             orangeFishToRight.start();
         }
-        var orangeFishToRight = game.add.tween(fish2).to({x: '+80'}, 4000, 'Linear', false, 0, 0, false);
+        var orangeFishToRight = game.add.tween(fish2).to({ x: '+80' }, 4000, 'Linear', false, 0, 0, false);
         orangeFishToRight.onComplete.add(vanishOrangeFish, this);
-        function vanishOrangeFish(){
+        function vanishOrangeFish() {
             orangeFishOut.start();
         }
-        var orangeFishOut = game.add.tween(fish2).to({alpha: 0}, 500, 'Linear', false, 0, 0, false);
+        var orangeFishOut = game.add.tween(fish2).to({ alpha: 0 }, 500, 'Linear', false, 0, 0, false);
         orangeFishOut.onComplete.add(backToInitialPosition, this);
-        function backToInitialPosition(){
-            fish2.x -=80;
+        function backToInitialPosition() {
+            fish2.x -= 80;
             orangeFishIn.start();
         }
-        var orangeFishIn = game.add.tween(fish2).to({alpha: 1}, 500, 'Linear', false, 0, 0, false);
+        var orangeFishIn = game.add.tween(fish2).to({ alpha: 1 }, 500, 'Linear', false, 0, 0, false);
         orangeFishIn.onComplete.add(restartMove, this);
-        function restartMove(){
+        function restartMove() {
             orangeFishToRight.start();
         }
     }
 }
+

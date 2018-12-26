@@ -12,17 +12,25 @@ var startButton,
 demo.menu = function () { };
 demo.menu.prototype = {
   preload: function () {
-    game.load.image('button', './assets/view/button.png');
+    game.load.image('button', gameSettings.blueButton);
   },
   create: function () {
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-    startButton = game.add.button(centerX, centerY - 50, 'button', startGame)
+    startButton = game.add.button(centerX, centerY - 100, 'button', startGame)
     startButton.anchor.setTo(0.5, 0.5);
+    this.add.text(centerX, centerY - 100, 'Play Game').anchor.setTo(.5,.5);
 
-    demoButton = game.add.button(centerX, centerY + 50, 'button', startDemo)
+    demoButton = game.add.button(centerX, centerY - 25, 'button', startDemo)
     demoButton.anchor.setTo(0.5, 0.5);
+    this.add.text(centerX, centerY - 25, 'Play Demo').anchor.setTo(.5,.5);
+
+    tutorial = game.add.button(centerX, centerY + 50, 'button', startTutorial)
+    tutorial.anchor.setTo(0.5, 0.5);
+    this.add.text(centerX, centerY + 50, 'Tutorial').anchor.setTo(.5,.5);
+
+    
 
   },
   update: function () {
@@ -38,4 +46,9 @@ function startGame() {
 function startDemo() {
   changeState(null, 'demoMode');
   console.log("start demo");
+}
+
+function startTutorial(){
+  changeState(null, 'instructions');
+  console.log("start tutorial");
 }

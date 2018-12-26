@@ -16,6 +16,7 @@ var gameSettings = {
     blueArrow: './assets/view/blueArrow.png',
     background: './assets/view/background.jpg',
     tutorialArrow: './assets/view/arrowInfo.png',
+    blueButton: './assets/view/button2.png',
     velocity: 1,
     gameWidth: 800,
     gameHeight: 600
