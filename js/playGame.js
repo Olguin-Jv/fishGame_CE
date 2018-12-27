@@ -196,29 +196,29 @@ demo.playGame.prototype = {
       if (rightMovement == "left") {
         cantAciertos++;
         goToNextMove('left');
+        showRightMovements(index)
       }
-      showRightMovements(index)
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && !gameVersion) {
       if (rightMovement == "right") {
         cantAciertos++;
         goToNextMove('right');
+        showRightMovements(index)
       }
-      showRightMovements(index)
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && !gameVersion) {
       if (rightMovement == "up") {
         cantAciertos++;
         goToNextMove('up');
+        showRightMovements(index)
       }
-      showRightMovements(index)
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && !gameVersion) {
       if (rightMovement == "down") {
         cantAciertos++;
         goToNextMove('left');
+        showRightMovements(index)
       }
-      showRightMovements(index)
     }
 
   }
@@ -344,7 +344,7 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
       console.log("juego terminado");
       gameStatus = false;
       canMove = false;
-      endGame();
+      // endGame();
     }
   }, 1200)
 }
