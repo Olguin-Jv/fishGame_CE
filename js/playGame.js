@@ -51,7 +51,7 @@ demo.playGame.prototype = {
 
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
 
-    txtInfoStyle = { fontFamily: 'Verdana', fontSize: '16px', fill: '#FFFFFF' }
+    txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
   },
 
   create: function () {
@@ -152,12 +152,12 @@ demo.playGame.prototype = {
     fish6.scale.setTo(.4);
 
     cardNumber = game.add.text(16, 16, '', txtInfoStyle);
-    aciertos = game.add.text(550, 16, '', txtInfoStyle);
+    aciertos = game.add.text(600, 16, '', txtInfoStyle);
+    movementChecker = game.add.text(16, 40, '', txtInfoStyle);
 
     backButton = game.add.button(90, gameHeight - 90, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
-
   },
 
   update: function () {
@@ -174,7 +174,7 @@ demo.playGame.prototype = {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && gameVersion) { //version real
       if (rightMovement == "left") cantAciertos++;
       goToNextMove('left');
-      showRightMovements(index)
+      showRightMovements(index);
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && gameVersion) {
       if (rightMovement == "right") cantAciertos++;
@@ -193,6 +193,7 @@ demo.playGame.prototype = {
     }
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && !gameVersion) { //version demo
+      showStats("LEFT");
       if (rightMovement == "left") {
         cantAciertos++;
         goToNextMove('left');
@@ -200,6 +201,7 @@ demo.playGame.prototype = {
       }
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && !gameVersion) {
+      showStats("RIGHT");
       if (rightMovement == "right") {
         cantAciertos++;
         goToNextMove('right');
@@ -207,6 +209,7 @@ demo.playGame.prototype = {
       }
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && !gameVersion) {
+      showStats("UP");
       if (rightMovement == "up") {
         cantAciertos++;
         goToNextMove('up');
@@ -214,6 +217,7 @@ demo.playGame.prototype = {
       }
     }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && !gameVersion) {
+      showStats("DOWN");
       if (rightMovement == "down") {
         cantAciertos++;
         goToNextMove('left');

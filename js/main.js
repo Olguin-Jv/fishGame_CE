@@ -23,7 +23,6 @@ var gameSettings = {
 }
 
 game.state.add('menu', demo.menu);
-// game.state.add('demoMode', demo.demoMode);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
 game.state.start('menu');

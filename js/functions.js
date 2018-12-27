@@ -78,7 +78,6 @@ function changeColor(elem, color) {
 }
 
 function fadeFish(elem) {
-    //fade ? elem.alpha += .05 : elem.alpha += -.05;
     game.add.tween(elem).to({ alpha: 0 }, 1000, "Linear", true, 0, 0)
 }
 
@@ -88,9 +87,8 @@ function centerFish(elem, x, y) {
 }
 
 function showStats(key) { //funcion para mostrar información al jugador en el modo de prueba
-    movementChecker.setText(`Fish color is: ${testLevel[index].color.toUpperCase()}\n` +
-        `Your move: ${key}. Correct move: ${testLevel[index].rightMov.toUpperCase()}`);
-    //txtAnim.play();
+    movementChecker.setText(`Color del pez: ${testLevel[index].color.toUpperCase()}\n` +
+        `Tu movimiento: ${key}. Movimiento correcto: ${testLevel[index].rightMov.toUpperCase()}`);
 }
 
 function showRightMovements(idx) {
