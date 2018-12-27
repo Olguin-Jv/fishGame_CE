@@ -133,6 +133,7 @@ demo.instructions.prototype = {
 
         function goDemoMode(){
             game.state.start('demoMode');
+            gameVersion = false;
         };
 
         function prevPage() {
@@ -246,8 +247,6 @@ demo.instructions.prototype = {
             }
             console.log("en página: " + pageNum);
         }
-
-
 
         fadeIn(title, 0);
         fadeIn(texto1, 1500);

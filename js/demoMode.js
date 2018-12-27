@@ -116,6 +116,7 @@ demo.demoMode.prototype = {
     prof4In.start();
     function prof4_move() {
       game.add.tween(prof4).to({ x: '-10', y: '-10' }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
+      startDemo();
     }
 
     fish1 = game.add.sprite(centerX, centerY, 'fish');
@@ -190,7 +191,7 @@ demo.demoMode.prototype = {
   }
 };
 
-function start() {
+function startDemo() {
 
   index = 0;
   cantAciertos = 0;
@@ -315,5 +316,4 @@ function showCardNumber(idx) {
   cardNumber.setText(`Carta n°${++idx} de ${levelLenght}`);
 }
 
-start();
 

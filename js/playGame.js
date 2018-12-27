@@ -1,42 +1,42 @@
-
-demo.playGame = function () {
-  //fondo
-this.prof1,
-this.prof2,
-this.prof3,
-this.prof4,
-this.algaLeft,
-this.algaRight;
+//fondo
+var prof1,
+  prof2,
+  prof3,
+  prof4,
+  algaLeft,
+  algaRight;
 
 //sprites
-this.arrow,
-this.fish1,
-this.fish2,
-this.fish3,
-this.fish4;
+var arrow,
+  fish1,
+  fish2,
+  fish3,
+  fish4;
 
-this.directionOrdered = "none",
-this.viewDirection,
-this.rightMovement,
-this.levelStats,
-this.gameStatus = false,
-this.canMove = false,
-this.fade = false,
-this.index,
-this.color;
+var directionOrdered = "none",
+  viewDirection,
+  rightMovement,
+  levelStats,
+  gameStatus = false,
+  canMove = false,
+  fade = false,
+  index,
+  color;
 
 //text
-this.cardNumber,
-this.aciertos,
-this.levelLenght,
-this.movementChecker,
-this.userInput,
-this.cantAciertos;
+var cardNumber,
+  aciertos,
+  levelLenght,
+  movementChecker,
+  userInput,
+  cantAciertos;
 //text style
-this.txtInfoStyle,
-this.style;
+var txtInfoStyle,
+  style;
 
- };
+demo.playGame = function () {
+
+};
 
 demo.playGame.prototype = {
   preload: function () {
@@ -117,6 +117,8 @@ demo.playGame.prototype = {
     prof4In.start();
     function prof4_move() {
       game.add.tween(prof4).to({ x: '-10', y: '-10' }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
+      console.log('Preparing PlayGame');
+      start();
     }
 
     fish1 = game.add.sprite(centerX, centerY, 'fish');
@@ -156,54 +158,6 @@ demo.playGame.prototype = {
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
 
-    function start() {
-      index = 0;
-      cantAciertos = 0;
-      levelLenght = testLevel.length;
-    
-      levelStats = new Object();
-    
-      var gameInit = setTimeout(function () {
-        console.log("timeout // juego iniciado")
-        gameStatus = true;
-        canMove = true;
-        refreshMovement(); //actualiza los datos de movimientos
-        showCardNumber(index);
-    
-        drawFishes(); //center fishes
-        startDataColector();
-    
-        fade = true;
-      }, 4000);
-    };
-
-    function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*/
-      canMove = false;
-      fade = false;
-      directionOrdered = "quiet";
-      endDataColector(arrowPressed);
-      ++index;
-      clearFishes();
-    
-      setTimeout(function () {
-        if (index < testLevel.length) {
-          canMove = true;
-          showCardNumber(index);
-          refreshMovement();
-    
-          drawFishes();
-          startDataColector();
-          fade = true;
-        } else {
-          console.log("juego terminado");
-          gameStatus = false;
-          canMove = false;
-          endGame();
-        }
-      }, 1200)
-    }
-    
-
   },
 
   update: function () {
@@ -216,24 +170,54 @@ demo.playGame.prototype = {
     updateFish(fish5);
     updateFish(fish6);
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove) {
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && gameVersion) { //version real
       if (rightMovement == "left") cantAciertos++;
       goToNextMove('left');
       showRightMovements(index)
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove) {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && gameVersion) {
       if (rightMovement == "right") cantAciertos++;
       goToNextMove('right');
       showRightMovements(index)
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove) {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && gameVersion) {
       if (rightMovement == "up") cantAciertos++;
       goToNextMove('up');
       showRightMovements(index)
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove) {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && gameVersion) {
       if (rightMovement == "down") cantAciertos++;
       goToNextMove('down');
+      showRightMovements(index)
+    }
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && !gameVersion) { //version demo
+      if (rightMovement == "left") {
+        cantAciertos++;
+        goToNextMove('left');
+      }
+      showRightMovements(index)
+    }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && !gameVersion) {
+      if (rightMovement == "right") {
+        cantAciertos++;
+        goToNextMove('right');
+      }
+      showRightMovements(index)
+    }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && !gameVersion) {
+      if (rightMovement == "up") {
+        cantAciertos++;
+        goToNextMove('up');
+      }
+      showRightMovements(index)
+    }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && !gameVersion) {
+      if (rightMovement == "down") {
+        cantAciertos++;
+        goToNextMove('left');
+      }
       showRightMovements(index)
     }
 
@@ -265,7 +249,7 @@ function refreshMovement() {
   color = testLevel[index].color;
 }
 
-function clearFishes(){
+function clearFishes() {
   fishFadeOut(fish1);
   fishFadeOut(fish2);
   fishFadeOut(fish3);
@@ -285,7 +269,7 @@ function drawFishes() {
   changeColor(fish2, testLevel[index].color);
   fishFadeIn(fish3);
   changeAngle(fish3, viewDirection);
-  centerFish(fish3, 40, -100 );
+  centerFish(fish3, 40, -100);
   changeColor(fish3, testLevel[index].color);
   fishFadeIn(fish4);
   changeAngle(fish4, viewDirection);
@@ -306,7 +290,7 @@ function updateFish(elem) {
 }
 
 function fishFadeIn(elem) {
-  game.add.tween(elem).to({ alpha: 1}, 1000, "Linear", true);
+  game.add.tween(elem).to({ alpha: 1 }, 1000, "Linear", true);
 }
 
 function fishFadeOut(elem) {
@@ -315,4 +299,52 @@ function fishFadeOut(elem) {
 
 function showCardNumber(idx) {
   cardNumber.setText(`Carta n°${++idx} de ${levelLenght}`);
+}
+
+function start() {
+  gameVersion ? console.log('Version real inciada') : console.log('Version DEMO inciada');
+  index = 0;
+  cantAciertos = 0;
+  levelLenght = testLevel.length;
+
+  levelStats = new Object();
+
+  var gameInit = setTimeout(function () {
+    console.log("timeout // juego iniciado")
+    gameStatus = true;
+    canMove = true;
+    refreshMovement(); //actualiza los datos de movimientos
+    showCardNumber(index);
+
+    drawFishes(); //center fishes
+    startDataColector();
+
+    fade = true;
+  }, 500);
+};
+
+function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*/
+  canMove = false;
+  fade = false;
+  directionOrdered = "quiet";
+  endDataColector(arrowPressed);
+  ++index;
+  clearFishes();
+
+  setTimeout(function () {
+    if (index < testLevel.length) {
+      canMove = true;
+      showCardNumber(index);
+      refreshMovement();
+
+      drawFishes();
+      startDataColector();
+      fade = true;
+    } else {
+      console.log("juego terminado");
+      gameStatus = false;
+      canMove = false;
+      endGame();
+    }
+  }, 1200)
 }
