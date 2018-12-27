@@ -8,7 +8,7 @@ demo.instructions = function () {
     this.txt1 = "Este pez tiene un frente";
     this.txt1_2 = "y una cola."
     this.txt2 = "Cada vez que vea el pez azul\ndeberá presionar la flecha\nindicando hacia donde está el frente.";
-    this.txt3 = "Si aparece el Helicoptero Rojo,\ndebera presionar la flecha que\nindique hacia donde se está\nmoviendo."
+    this.txt3 = "Si aparece el pez Rojo,\ndebera presionar la flecha que\nindique hacia donde se está\nmoviendo."
 
 };
 
