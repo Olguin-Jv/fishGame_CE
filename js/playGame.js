@@ -155,7 +155,7 @@ demo.playGame.prototype = {
     cardNumber = game.add.text(16, 16, '', txtInfoStyle);
     aciertos = game.add.text(600, 16, '', txtInfoStyle);
     movementChecker = game.add.text(16, 40, '', txtInfoStyle);
-    endGameTXT = game.add.text(game.world.centerX, game.world.centerY, 'Fin del juego', txtInfoStyle);
+    // endGameTXT = game.add.text(game.world.centerX, game.world.centerY, 'Fin del juego', txtInfoStyle);
 
     backButton = game.add.button(90, gameHeight - 90, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
