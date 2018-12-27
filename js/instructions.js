@@ -132,7 +132,7 @@ demo.instructions.prototype = {
         this.add.text(game.world.centerX +125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5,.5)
 
         function goDemoMode(){
-            game.state.start('demoMode');
+            game.state.start('playGame');
             gameVersion = false;
         };
 
