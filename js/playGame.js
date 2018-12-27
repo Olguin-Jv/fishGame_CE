@@ -162,7 +162,6 @@ demo.playGame.prototype = {
 
   update: function () {
 
-    //moveWithArrows();
     updateFish(fish1);
     updateFish(fish2);
     updateFish(fish3);

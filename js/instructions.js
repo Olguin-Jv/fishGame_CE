@@ -262,12 +262,10 @@ demo.instructions.prototype = {
         function pressButton(elem, scaleFx, delay) {
             var elemPressed = game.add.tween(elem.scale).to({ x: scaleFx, y: scaleFx }, 750, 'Linear', true, delay, -1, true);
         };
+        
         var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
-
         var rightKeyPressed = game.add.tween(keyRight.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
-
         var pulseArrowUp = game.add.tween(arrowUp.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
-
         var pulseArrowLeft = game.add.tween(arrowLeft.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
 
 
@@ -278,6 +276,7 @@ demo.instructions.prototype = {
         function fadeOut(elem) {
             var elemOut = game.add.tween(elem).to({ alpha: 0, x: '+25' }, 250, 'Linear', true, 0, 0, false);
         }
+
 
         var fadeOutFish2 = game.add.tween(fish2).to({ alpha: 0, x: '+25' }, 250, 'Linear', false, 0, 0, false);
         fadeOutFish2.onComplete.add(fadeFish2, this);

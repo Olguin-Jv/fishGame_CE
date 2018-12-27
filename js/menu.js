@@ -19,6 +19,7 @@ demo.menu.prototype = {
   create: function () {
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
     this.add.image(0, 0, 'background');
 
     startButton = game.add.button(centerX, centerY - 100, 'button', startGame);

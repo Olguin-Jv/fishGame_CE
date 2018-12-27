@@ -1,7 +1,9 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO);
 game.parent = 'game-container';
 game.transparent = true;
-game.resolution = window.devicePixelRatio;
+
+        //this cause issues in mobile devices
+//game.resolution = window.devicePixelRatio;
 
 var gameSettings = {
     showRightMovements: true,

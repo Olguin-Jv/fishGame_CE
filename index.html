@@ -19,20 +19,24 @@
   </script>
 </head>
 <style>
-  /* * {
-    margin: 0%;
-  } */
+  
   #game-container {
-    max-width: 800px
+    max-width: 800px;
   }
 
   canvas {
     background-color: lightblue;
   }
+
 </style>
 
 <body>
-
+  <p>Width:
+    <script>document.write(window.innerWidth)</script>
+  </p>
+  <p>Height:
+    <script>document.write(window.innerHeight)</script>
+  </p>
   <div id="game-container"></div>
 
   <script src="js/main.js"></script>
