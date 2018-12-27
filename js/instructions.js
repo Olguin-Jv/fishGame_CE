@@ -121,23 +121,24 @@ demo.instructions.prototype = {
         this.anterior.scale.setTo(.3);
         this.anterior.angle = -180;
 
-        this.homeButton = this.add.button(game.world.centerX -125, 550, 'homeButton', backToMenu);
+        this.homeButton = this.add.button(game.world.centerX - 125, 550, 'homeButton', backToMenu);
         this.homeButton.anchor.setTo(.5, .5);
         this.homeButton.scale.setTo(.8);
-        this.add.text(game.world.centerX -125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5,.5);
+        this.add.text(game.world.centerX - 125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
 
-        this.demoButton = this.add.button(game.world.centerX +125, 550, 'homeButton', goDemoMode);
+        this.demoButton = this.add.button(game.world.centerX + 125, 550, 'homeButton', goDemoMode);
         this.demoButton.anchor.setTo(.5, .5);
         this.demoButton.scale.setTo(.8);
-        this.add.text(game.world.centerX +125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5,.5)
+        this.add.text(game.world.centerX + 125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
 
-        function goDemoMode(){
+        function goDemoMode() {
             game.state.start('playGame');
             gameVersion = false;
         };
 
         function prevPage() {
-
+            scroll = false;
+            clearInterval(interval);
             switch (pageNum) {
                 case 1:
                     console.log('no existe página previa');
@@ -158,7 +159,7 @@ demo.instructions.prototype = {
 
                     pulseArrowUp.pause();
                     fadeOut(arrowUp);
-                    
+
                     pageNum--;
                     break;
                 case 3:
@@ -190,6 +191,9 @@ demo.instructions.prototype = {
         };
 
         function nextPage() {
+            
+            scroll = true;
+            if(!scroll) autoScroll();
 
             switch (pageNum) {
                 case 0:
@@ -250,10 +254,10 @@ demo.instructions.prototype = {
 
         fadeIn(title, 0);
         fadeIn(texto1, 1500);
-        fadeIn(texto1_2, 2500);
+        fadeIn(texto1_2, 4500);
         fadeIn(fish, 0);
         pulse(blueArrowUp, 1500);
-        pulse(blueArrowDown, 2500);
+        pulse(blueArrowDown, 4500);
 
         function pulse(elem, delay) {
             var elemPulse = game.add.tween(elem).to({ alpha: 1 }, 750, 'Linear', true, delay, 0, true);
@@ -262,7 +266,7 @@ demo.instructions.prototype = {
         function pressButton(elem, scaleFx, delay) {
             var elemPressed = game.add.tween(elem.scale).to({ x: scaleFx, y: scaleFx }, 750, 'Linear', true, delay, -1, true);
         };
-        
+
         var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
         var rightKeyPressed = game.add.tween(keyRight.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
         var pulseArrowUp = game.add.tween(arrowUp.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
@@ -270,17 +274,17 @@ demo.instructions.prototype = {
 
 
         function fadeIn(elem, delay) {
-            var elemIn = game.add.tween(elem).to({ alpha: 1, x: '-25' }, 250, 'Linear', true, delay, 0, false);
+            var elemIn = game.add.tween(elem).to({ alpha: 1, x: '-25' }, 500, 'Linear', true, delay, 0, false);
         }
 
         function fadeOut(elem) {
-            var elemOut = game.add.tween(elem).to({ alpha: 0, x: '+25' }, 250, 'Linear', true, 0, 0, false);
+            var elemOut = game.add.tween(elem).to({ alpha: 0, x: '+25' }, 500, 'Linear', true, 0, 0, false);
         }
 
 
         var fadeOutFish2 = game.add.tween(fish2).to({ alpha: 0, x: '+25' }, 250, 'Linear', false, 0, 0, false);
         fadeOutFish2.onComplete.add(fadeFish2, this);
-        function fadeFish2(){
+        function fadeFish2() {
             fish2.x = game.world.centerX + 225;
         }
 
@@ -305,6 +309,18 @@ demo.instructions.prototype = {
         function restartMove() {
             orangeFishToRight.start();
         }
+        var scroll = true;
+        
+        function autoScroll() {
+
+            interval = setInterval(function () {
+                if (scroll) nextPage();
+            }, 10000);
+
+        }
+        autoScroll();
+
+
     }
 }
 
