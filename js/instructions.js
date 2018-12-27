@@ -145,12 +145,16 @@ demo.instructions.prototype = {
                     return;
                     break;
                 case 2:
-                    fadeIn(texto1, 0);
-                    fadeIn(texto1_2, 1500);
+                    txt1_in.start();
+                    txt1_in.resume();
+                    txt1_2_in.start();
+                    txt1_2_in.resume();
                     blueArrowDown.x -= 25;
                     blueArrowUp.x -= 25;
-                    pulse(blueArrowUp, 500);
-                    pulse(blueArrowDown, 1500);
+                    blueArrowDown_In.start();
+                    blueArrowDown_In.resume();
+                    blueArrowUp_In.start();
+                    blueArrowUp_In.resume();
                     fadeOut(texto2);
                     fadeOut(keyUp);
                     fadeOut(keyDown);
@@ -191,9 +195,9 @@ demo.instructions.prototype = {
         };
 
         function nextPage() {
-            
+
             scroll = true;
-            if(!scroll) autoScroll();
+            if (!scroll) autoScroll();
 
             switch (pageNum) {
                 case 0:
@@ -203,10 +207,17 @@ demo.instructions.prototype = {
                     console.log(pageNum);
                     break;
                 case 1:
+
+                    txt1_in.pause();
+                    txt1_2_in.pause();
                     fadeOut(texto1);
                     fadeOut(texto1_2);
-                    fadeOut(blueArrowDown);
+
+                    blueArrowUp_In.pause();
                     fadeOut(blueArrowUp)
+                    blueArrowDown_In.pause();
+                    fadeOut(blueArrowDown);
+
                     fadeIn(texto2, 0);
                     fadeIn(keyUp, 0);
                     fadeIn(keyDown, 0);
@@ -219,7 +230,7 @@ demo.instructions.prototype = {
                     fadeIn(arrowUp);
                     pulseArrowUp.start();
                     pulseArrowUp.resume();
-                    // pressButton(arrowUp, .15, 0);
+
                     pageNum++;
                     break;
                 case 2:
@@ -252,12 +263,14 @@ demo.instructions.prototype = {
             console.log("en página: " + pageNum);
         }
 
-        fadeIn(title, 0);
-        fadeIn(texto1, 1500);
-        fadeIn(texto1_2, 4500);
-        fadeIn(fish, 0);
-        pulse(blueArrowUp, 1500);
-        pulse(blueArrowDown, 4500);
+
+        var txt1_in = game.add.tween(texto1).to({ alpha: 1, x: '-25' }, 500, 'Linear', false, 500, 0, false);
+        var txt1_2_in = game.add.tween(texto1_2).to({ alpha: 1, x: '-25' }, 500, 'Linear', false, 3500, 0, false);
+
+        var blueArrowUp_In = game.add.tween(blueArrowUp).to({ alpha: 1 }, 750, 'Linear', false, 500, 0, true);
+        var blueArrowDown_In = game.add.tween(blueArrowDown).to({ alpha: 1 }, 750, 'Linear', false, 3500, 0, true);
+
+
 
         function pulse(elem, delay) {
             var elemPulse = game.add.tween(elem).to({ alpha: 1 }, 750, 'Linear', true, delay, 0, true);
@@ -310,7 +323,7 @@ demo.instructions.prototype = {
             orangeFishToRight.start();
         }
         var scroll = true;
-        
+
         function autoScroll() {
 
             interval = setInterval(function () {
@@ -319,7 +332,13 @@ demo.instructions.prototype = {
 
         }
         autoScroll();
-
+        
+        fadeIn(title, 0);
+        fadeIn(fish, 0);
+        txt1_in.start();
+        txt1_2_in.start();
+        blueArrowUp_In.start();
+        blueArrowDown_In.start();
 
     }
 }

@@ -33,7 +33,8 @@ var cardNumber,
   endGameTXT;
 //text style
 var txtInfoStyle,
-  style;
+  style,
+  txtEndGameStyle;
 
 demo.playGame = function () {
 
@@ -51,11 +52,12 @@ demo.playGame.prototype = {
     game.load.image('backButton', gameSettings.backButton);
 
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
-
+    txtEndGameStyle = { font: 'Staatliches', fontSize: '100px', fill: '#004bc4' }
     txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
   },
 
   create: function () {
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.stage.disableVisibilityChange = true;
 
     algaLeft = game.add.image(90, 0, 'algaLeft');
@@ -155,7 +157,12 @@ demo.playGame.prototype = {
     cardNumber = game.add.text(16, 16, '', txtInfoStyle);
     aciertos = game.add.text(600, 16, '', txtInfoStyle);
     movementChecker = game.add.text(16, 40, '', txtInfoStyle);
-    // endGameTXT = game.add.text(game.world.centerX, game.world.centerY, 'Fin del juego', txtInfoStyle);
+    
+    endGameTXT = game.add.text(game.world.centerX, -300, 'Fin del juego', txtEndGameStyle);
+    endGameTXT.anchor.setTo(.5,.5);
+    endGameTXT.stroke = '#7fb0ff';
+    endGameTXT.strokeThickness = 6;
+    endGameTXT.alpha = 0;
 
     backButton = game.add.button(90, gameHeight - 90, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
@@ -349,7 +356,11 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
       console.log("juego terminado");
       gameStatus = false;
       canMove = false;
-      // endGame();
+      endGame();
     }
   }, 1200)
+}
+
+function endGame(){
+  game.add.tween(endGameTXT).to({y: game.world.centerY- 40, alpha: 1}, 1000, 'Bounce.easeOut', true, 0, 0, false);
 }
