@@ -163,7 +163,7 @@ demo.playGame.prototype = {
     fish6.scale.setTo(.4);
 
     cardNumber = game.add.text(16, 16, '', txtInfoStyle);
-    aciertos = game.add.text(600, 16, '', txtInfoStyle);
+    aciertos = game.add.text(gameWidth * .65, 16, '', txtInfoStyle);
     movementChecker = game.add.text(16, 40, '', txtInfoStyle);
 
     endGameTXT = game.add.text(game.world.centerX, -300, 'Fin del juego', txtEndGameStyle);
@@ -172,7 +172,7 @@ demo.playGame.prototype = {
     endGameTXT.strokeThickness = 6;
     endGameTXT.alpha = 0;
 
-    backButton = game.add.button(90, gameHeight - 90, 'backButton', backToMenu);
+    backButton = game.add.button(gameWidth * .15, gameHeight *.75, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
 

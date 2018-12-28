@@ -12,6 +12,8 @@
   <script src="js/menu.js"></script>
   <script src="js/playGame.js"></script>
   <script src="js/instructions.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
   <script>
     WebFont.load({
@@ -22,20 +24,14 @@
     });
   </script>
 </head>
-<style>
-  #game-container {
-    max-width: 800px;
-  }
-
-  canvas {
-    background-color: lightblue;
-  }
-</style>
 
 <body>
-  <p><script>document.write(window.devicePixelRatio)</script></p>
+  <p><script>
+    document.write(window.orientation)
+    document.write(window.innerWidth)
+    document.write(window.innerHeight)
+    </script></p>
   <div id="game-container"></div>
-
   <script src="js/main.js"></script>
 
 </body>
