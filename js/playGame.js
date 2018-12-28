@@ -51,6 +51,11 @@ demo.playGame.prototype = {
     game.load.image('prof4', './assets/view/profundidad4.png');
     game.load.image('backButton', gameSettings.backButton);
 
+    game.load.image('upKey', gameSettings.upKey);
+    game.load.image('downKey', gameSettings.downKey);
+    game.load.image('leftKey', gameSettings.leftKey);
+    game.load.image('rightKey', gameSettings.rightKey);
+
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
     txtEndGameStyle = { font: 'Staatliches', fontSize: '100px', fill: '#004bc4' }
     txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
@@ -157,9 +162,9 @@ demo.playGame.prototype = {
     cardNumber = game.add.text(16, 16, '', txtInfoStyle);
     aciertos = game.add.text(600, 16, '', txtInfoStyle);
     movementChecker = game.add.text(16, 40, '', txtInfoStyle);
-    
+
     endGameTXT = game.add.text(game.world.centerX, -300, 'Fin del juego', txtEndGameStyle);
-    endGameTXT.anchor.setTo(.5,.5);
+    endGameTXT.anchor.setTo(.5, .5);
     endGameTXT.stroke = '#7fb0ff';
     endGameTXT.strokeThickness = 6;
     endGameTXT.alpha = 0;
@@ -167,6 +172,53 @@ demo.playGame.prototype = {
     backButton = game.add.button(90, gameHeight - 90, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
+
+    var upKeyX = game.world.centerX;
+    var upKeyY = 440;
+
+    var keyUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
+    keyUp.anchor.setTo(.5, .5);
+    function pressUp() {
+      checkUserInput('up');
+      console.log("key up pressed");
+    };
+
+    var keyDown = this.add.button(upKeyX, upKeyY + 100, 'downKey', pressDown);
+    keyDown.anchor.setTo(.5, .5);
+    function pressDown() {
+      checkUserInput('down');
+      console.log("key down pressed");
+    };
+
+    var keyLeft = this.add.button(upKeyX - 96, upKeyY + 100, 'leftKey', pressLeft);
+    keyLeft.anchor.setTo(.5, .5);
+    function pressLeft() {
+      checkUserInput('left');
+      console.log("key left pressed");
+    };
+
+    var keyRight = this.add.button(upKeyX + 96, upKeyY + 100, 'rightKey', pressRight);
+    keyRight.anchor.setTo(.5, .5);
+    function pressRight() {
+      checkUserInput('right');
+    };
+
+    function checkUserInput(direction) {
+      if (canMove && gameVersion) { //version real
+        if (rightMovement == direction) cantAciertos++;
+        goToNextMove(direction);
+        showRightMovements(index)
+      }
+      if (canMove && !gameVersion) {
+        showStats(direction);
+        if (rightMovement == direction) {
+          cantAciertos++;
+          goToNextMove(direction);
+          showRightMovements(index);
+        }
+      }
+    }
+
   },
 
   update: function () {
@@ -361,6 +413,6 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
   }, 1200)
 }
 
-function endGame(){
-  game.add.tween(endGameTXT).to({y: game.world.centerY- 40, alpha: 1}, 1000, 'Bounce.easeOut', true, 0, 0, false);
+function endGame() {
+  game.add.tween(endGameTXT).to({ y: game.world.centerY - 40, alpha: 1 }, 1000, 'Bounce.easeOut', true, 0, 0, false);
 }
