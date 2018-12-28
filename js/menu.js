@@ -1,9 +1,9 @@
 var demo = {};
 
-var centerX = 800 / 2,
-  centerY = 600 / 2,
-  gameWidth = 800,
-  gameHeight = 600;
+var centerX,
+  centerY,
+  gameWidth,
+  gameHeight;
 
 var startButton,
   demoButton;
@@ -20,9 +20,15 @@ demo.menu.prototype = {
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
+
+    var centerX = game.world.centerX,
+      centerY = game.world.centerY;
+
     this.add.image(0, 0, 'background');
 
-    this.menuStyle = {font: 'Montserrat', fontSize: '32px', fill: '#000000'}
+    this.menuStyle = { font: 'Montserrat', fontSize: '32px', fill: '#000000' }
 
     startButton = game.add.button(centerX, centerY - 100, 'button', startGame);
     startButton.anchor.setTo(0.5, 0.5);
@@ -50,7 +56,7 @@ function startGame() {
 
 function startDemo() {
   changeState(null, 'playGame');
-  gameVersion = false;  
+  gameVersion = false;
   console.log("//////////////////////////////////////////////////////");
   console.log("Scene changed to: DemoMode");
 }

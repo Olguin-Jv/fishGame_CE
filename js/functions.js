@@ -40,15 +40,15 @@ function moveFish(elem) {
 
 function movementLoop(elem) {
     if (elem.x < (0 - 120)) {
-        elem.x = gameSettings.gameWidth + 90;
+        elem.x = gameWidth + 90;
     }
-    if (elem.x > (gameSettings.gameWidth + 120)) {
+    if (elem.x > (gameWidth + 120)) {
         elem.x = -75;
     }
     if (elem.y < (0 - 120)) {
-        elem.y = gameSettings.gameHeight + 90;
+        elem.y = gameHeight + 90;
     }
-    if (elem.y > gameSettings.gameHeight + 120) {
+    if (elem.y > gameHeight + 120) {
         elem.y = -75;
     }
 }

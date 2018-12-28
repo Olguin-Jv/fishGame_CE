@@ -28,7 +28,7 @@ demo.instructions.prototype = {
         this.load.image('homeButton', './assets/view/button2.png');
     },
     create: function () {
-
+        
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.stage.disableVisibilityChange = true;
 

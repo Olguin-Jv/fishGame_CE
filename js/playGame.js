@@ -76,17 +76,20 @@ demo.playGame.prototype = {
       game.add.tween(algaLeft).to({ x: '+12', angle: -6 }, 3500, 'Bounce.easeInOut', true, 0, -1, true);
     }
 
-    algaRight = game.add.image(gameWidth - 90, gameHeight + 5, 'algaRight');
+    algaRight = game.add.image(game.world.width - 90, game.world.height + 5, 'algaRight');
     algaRight.anchor.setTo(0.5, 1);
     algaRight.scale.setTo(0.35, 0.35);
 
     var algaRightIn = game.add.tween(algaRight);
-    algaRightIn.from({ x: gameSettings.gameWidth + 200 }, 1000, "Bounce");
+    algaRightIn.from({ x: game.world.width + 200 }, 1000, "Bounce");
     algaRightIn.onComplete.add(algaRightOn, this);
     algaRightIn.start();
     function algaRightOn() {
       game.add.tween(algaRight).to({ x: '-10', angle: -6 }, 4000, 'Bounce.easeInOut', true, 0, -1, true);
     }
+
+    centerX = game.world.centerX;
+    centerY = game.world.centerY;
 
     prof1 = game.add.image(centerX, centerY, 'prof1');
     prof1.alpha = 0;
