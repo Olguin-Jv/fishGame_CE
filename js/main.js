@@ -1,13 +1,16 @@
 var gameX,
-	gameY;
+	gameY,
+	showControls = false;
+
 
 if (!window.orientation) {
 	gameX = 800;
 	gameY = 600;
 }
-if (window.orientation == 0) {
+if (window.orientation == 0 || window.orientation == 90 || window.orientation == -90) {
 	gameX = 420;
 	gamey = 500;
+	showControls = true;
 }
 
 var game = new Phaser.Game(gameX, gameY, Phaser.AUTO);
@@ -31,6 +34,7 @@ var gameSettings = {
 	background: './assets/view/background.jpg',
 	tutorialArrow: './assets/view/arrowInfo.png',
 	blueButton: './assets/view/button2.png',
+	movementAlert: './assets/view/01_640x332.png',
 	velocity: 1,
 	gameWidth: 800,
 	gameHeight: 600
@@ -39,4 +43,4 @@ var gameSettings = {
 game.state.add('menu', demo.menu);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
-game.state.start('menu');
+game.state.start('playGame');

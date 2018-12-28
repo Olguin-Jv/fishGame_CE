@@ -11,7 +11,8 @@ var arrow,
   fish1,
   fish2,
   fish3,
-  fish4;
+  fish4,
+  movAlert;
 
 var directionOrdered = "none",
   viewDirection,
@@ -31,14 +32,13 @@ var cardNumber,
   userInput,
   cantAciertos,
   endGameTXT;
+
 //text style
 var txtInfoStyle,
   style,
   txtEndGameStyle;
 
-demo.playGame = function () {
-
-};
+demo.playGame = function () { };
 
 demo.playGame.prototype = {
   preload: function () {
@@ -56,14 +56,21 @@ demo.playGame.prototype = {
     game.load.image('leftKey', gameSettings.leftKey);
     game.load.image('rightKey', gameSettings.rightKey);
 
+    game.load.spritesheet('movementAlert', gameSettings.movementAlert, 320, 332, 2);
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
-    txtEndGameStyle = { font: 'Staatliches', fontSize: '100px', fill: '#004bc4' }
+
+    txtEndGameStyle = { font: 'Staatliches', fontSize: '60px', fill: '#004bc4' }
     txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
   },
 
   create: function () {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.stage.disableVisibilityChange = true;
+
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
+    centerX = game.world.centerX;
+    centerY = game.world.centerY;
 
     algaLeft = game.add.image(90, 0, 'algaLeft');
     algaLeft.anchor.setTo(0.5, 0);
@@ -87,9 +94,6 @@ demo.playGame.prototype = {
     function algaRightOn() {
       game.add.tween(algaRight).to({ x: '-10', angle: -6 }, 4000, 'Bounce.easeInOut', true, 0, -1, true);
     }
-
-    centerX = game.world.centerX;
-    centerY = game.world.centerY;
 
     prof1 = game.add.image(centerX, centerY, 'prof1');
     prof1.alpha = 0;
@@ -120,6 +124,7 @@ demo.playGame.prototype = {
     function prof3_move() {
       game.add.tween(prof3).to({ x: '-20', y: '+15' }, 15000, "Bounce.easeInOut", true, 2000, -1, true)
     }
+
     prof4 = game.add.image(centerX, centerY, 'prof4');
     prof4.alpha = 0;
     prof4.anchor.setTo(0.5, 0.5);
@@ -172,39 +177,56 @@ demo.playGame.prototype = {
     endGameTXT.strokeThickness = 6;
     endGameTXT.alpha = 0;
 
-    backButton = game.add.button(gameWidth * .15, gameHeight *.75, 'backButton', backToMenu);
+    backButton = game.add.button(gameWidth * .10, gameHeight * .75, 'backButton', backToMenu);
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
 
     var upKeyX = game.world.centerX;
     var upKeyY = 440;
 
-    var keyUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
-    keyUp.anchor.setTo(.5, .5);
-    function pressUp() {
-      checkUserInput('up');
-      console.log("key up pressed");
-    };
+    if (showControls) {
+        var buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
+        buttonUp.anchor.setTo(.5, .5);
+      
+        var buttonDown = this.add.button(upKeyX, upKeyY + 100, 'downKey', pressDown);
+        buttonDown.anchor.setTo(.5, .5);
+      
+        var buttonLeft = this.add.button(upKeyX - 96, upKeyY + 100, 'leftKey', pressLeft);
+        buttonLeft.anchor.setTo(.5, .5);
+      
+        var buttonRight = this.add.button(upKeyX + 96, upKeyY + 100, 'rightKey', pressRight);
+        buttonRight.anchor.setTo(.5, .5);
+    }
 
-    var keyDown = this.add.button(upKeyX, upKeyY + 100, 'downKey', pressDown);
-    keyDown.anchor.setTo(.5, .5);
-    function pressDown() {
-      checkUserInput('down');
-      console.log("key down pressed");
-    };
+    var keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    keyW.onDown.add(pressUp, this);
 
-    var keyLeft = this.add.button(upKeyX - 96, upKeyY + 100, 'leftKey', pressLeft);
-    keyLeft.anchor.setTo(.5, .5);
-    function pressLeft() {
-      checkUserInput('left');
-      console.log("key left pressed");
-    };
+    var keyS = game.input.keyboard.addKey(Phaser.Keyboard.S);
+    keyS.onDown.add(pressDown, this);
 
-    var keyRight = this.add.button(upKeyX + 96, upKeyY + 100, 'rightKey', pressRight);
-    keyRight.anchor.setTo(.5, .5);
-    function pressRight() {
-      checkUserInput('right');
-    };
+    var keyA = game.input.keyboard.addKey(Phaser.Keyboard.A);
+    keyA.onDown.add(pressLeft, this);
+
+    var keyD = game.input.keyboard.addKey(Phaser.Keyboard.D);
+    keyD.onDown.add(pressRight, this);
+
+    var keyUp = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    keyUp.onDown.add(pressUp, this);
+
+    var keyDown = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    keyDown.onDown.add(pressDown, this);
+
+    var keyLeft = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    keyLeft.onDown.add(pressLeft, this);
+
+    var keyRight = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    keyRight.onDown.add(pressRight, this);
+
+    movAlert = game.add.sprite(centerX, centerY, 'movementAlert');
+    movAlert.anchor.setTo(.5, .5);
+    movAlert.scale.setTo(.4);
+    movAlert.alpha = 0;
+
   },
 
   update: function () {
@@ -215,20 +237,6 @@ demo.playGame.prototype = {
     updateFish(fish4);
     updateFish(fish5);
     updateFish(fish6);
-
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
-      checkUserInput('left');
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-      checkUserInput('right')
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-      checkUserInput('up');
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
-      checkUserInput('down');
-    }
 
   }
 };
@@ -359,6 +367,7 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
 }
 
 function checkUserInput(direction) {
+  console.log(direction);
   if (canMove && gameVersion) { //version real
     if (rightMovement == direction) cantAciertos++;
     goToNextMove(direction);
@@ -370,10 +379,45 @@ function checkUserInput(direction) {
       cantAciertos++;
       goToNextMove(direction);
       showRightMovements(index);
-    }
+      showAlert(movAlert, 1)
+    } else { showAlert(movAlert, 0) }
   }
 }
 
 function endGame() {
   game.add.tween(endGameTXT).to({ y: game.world.centerY - 40, alpha: 1 }, 1000, 'Bounce.easeOut', true, 0, 0, false);
 }
+
+function showAlert(elem, sprite) {
+  this.alert = game.add.sprite(centerX, centerY, 'movementAlert');
+  this.alert.frame = sprite;
+  this.alert.alpha = 0;
+  this.alert.scale.setTo(.1);
+  this.alert.anchor.setTo(.5, .5);
+  game.add.tween(this.alert).to({ alpha: 1 }, 250, 'Linear', true, 0, 0, false)
+  game.add.tween(this.alert.scale).to({ x: .3, y: .3 }, 500, 'Bounce', true, 0, 0, false);
+  game.add.tween(this.alert).to({ alpha: 0 }, 1000, 'Linear', true, 800, 0, false)
+};
+
+function crearControles() {
+
+}
+
+function pressUp() {
+  checkUserInput('up');
+  console.log("key up pressed");
+};
+
+function pressDown() {
+  checkUserInput('down');
+  console.log("key down pressed");
+};
+
+function pressLeft() {
+  checkUserInput('left');
+  console.log("key left pressed");
+};
+
+function pressRight() {
+  checkUserInput('right');
+};

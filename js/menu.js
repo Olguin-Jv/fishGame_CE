@@ -23,8 +23,8 @@ demo.menu.prototype = {
     gameWidth = game.world.width;
     gameHeight = game.world.height;
 
-    var centerX = game.world.centerX,
-      centerY = game.world.centerY;
+    centerX = game.world.centerX;
+    centerY = game.world.centerY;
 
     this.add.image(0, 0, 'background');
 
