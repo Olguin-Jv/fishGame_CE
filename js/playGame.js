@@ -181,21 +181,26 @@ demo.playGame.prototype = {
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
 
-    var upKeyX = game.world.centerX;
-    var upKeyY = 440;
 
     if (showControls) {
-        var buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
-        buttonUp.anchor.setTo(.5, .5);
+      var upKeyX = game.world.centerX;
+      var upKeyY = 465;
       
-        var buttonDown = this.add.button(upKeyX, upKeyY + 100, 'downKey', pressDown);
-        buttonDown.anchor.setTo(.5, .5);
-      
-        var buttonLeft = this.add.button(upKeyX - 96, upKeyY + 100, 'leftKey', pressLeft);
-        buttonLeft.anchor.setTo(.5, .5);
-      
-        var buttonRight = this.add.button(upKeyX + 96, upKeyY + 100, 'rightKey', pressRight);
-        buttonRight.anchor.setTo(.5, .5);
+      this.buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
+      this.buttonUp.anchor.setTo(.5, .5);
+      this.buttonUp.scale.setTo(.7);
+
+      this.buttonDown = this.add.button(upKeyX, upKeyY + 75, 'downKey', pressDown);
+      this.buttonDown.anchor.setTo(.5, .5);
+      this.buttonDown.scale.setTo(.7);
+
+      this.buttonLeft = this.add.button(upKeyX - 71, upKeyY + 75, 'leftKey', pressLeft);
+      this.buttonLeft.anchor.setTo(.5, .5);
+      this.buttonLeft.scale.setTo(.7);
+
+      this.buttonRight = this.add.button(upKeyX + 71, upKeyY + 75, 'rightKey', pressRight);
+      this.buttonRight.anchor.setTo(.5, .5);
+      this.buttonRight.scale.setTo(.7);
     }
 
     var keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -399,9 +404,6 @@ function showAlert(elem, sprite) {
   game.add.tween(this.alert).to({ alpha: 0 }, 1000, 'Linear', true, 800, 0, false)
 };
 
-function crearControles() {
-
-}
 
 function pressUp() {
   checkUserInput('up');
