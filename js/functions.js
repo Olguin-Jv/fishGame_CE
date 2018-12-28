@@ -88,7 +88,7 @@ function centerFish(elem, x, y) {
 
 function showStats(key) { //funcion para mostrar información al jugador en el modo de prueba
     movementChecker.setText(`Color del pez: ${testLevel[index].color.toUpperCase()}\n` +
-        `Tu movimiento: ${key}. Movimiento correcto: ${testLevel[index].rightMov.toUpperCase()}`);
+        `Tu movimiento: ${key}.\nMovimiento correcto: ${testLevel[index].rightMov.toUpperCase()}`);
 }
 
 function showRightMovements(idx) {

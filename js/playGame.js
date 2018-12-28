@@ -202,23 +202,6 @@ demo.playGame.prototype = {
     function pressRight() {
       checkUserInput('right');
     };
-
-    function checkUserInput(direction) {
-      if (canMove && gameVersion) { //version real
-        if (rightMovement == direction) cantAciertos++;
-        goToNextMove(direction);
-        showRightMovements(index)
-      }
-      if (canMove && !gameVersion) {
-        showStats(direction);
-        if (rightMovement == direction) {
-          cantAciertos++;
-          goToNextMove(direction);
-          showRightMovements(index);
-        }
-      }
-    }
-
   },
 
   update: function () {
@@ -231,58 +214,17 @@ demo.playGame.prototype = {
     updateFish(fish6);
 
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && gameVersion) { //version real
-      if (rightMovement == "left") cantAciertos++;
-      goToNextMove('left');
-      showRightMovements(index);
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+      checkUserInput('left');
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && gameVersion) {
-      if (rightMovement == "right") cantAciertos++;
-      goToNextMove('right');
-      showRightMovements(index)
+    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+      checkUserInput('right')
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && gameVersion) {
-      if (rightMovement == "up") cantAciertos++;
-      goToNextMove('up');
-      showRightMovements(index)
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+      checkUserInput('up');
     }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && gameVersion) {
-      if (rightMovement == "down") cantAciertos++;
-      goToNextMove('down');
-      showRightMovements(index)
-    }
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && canMove && !gameVersion) { //version demo
-      showStats("LEFT");
-      if (rightMovement == "left") {
-        cantAciertos++;
-        goToNextMove('left');
-        showRightMovements(index)
-      }
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && canMove && !gameVersion) {
-      showStats("RIGHT");
-      if (rightMovement == "right") {
-        cantAciertos++;
-        goToNextMove('right');
-        showRightMovements(index)
-      }
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && canMove && !gameVersion) {
-      showStats("UP");
-      if (rightMovement == "up") {
-        cantAciertos++;
-        goToNextMove('up');
-        showRightMovements(index)
-      }
-    }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && canMove && !gameVersion) {
-      showStats("DOWN");
-      if (rightMovement == "down") {
-        cantAciertos++;
-        goToNextMove('left');
-        showRightMovements(index)
-      }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+      checkUserInput('down');
     }
 
   }
@@ -411,6 +353,22 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
       endGame();
     }
   }, 1200)
+}
+
+function checkUserInput(direction) {
+  if (canMove && gameVersion) { //version real
+    if (rightMovement == direction) cantAciertos++;
+    goToNextMove(direction);
+    showRightMovements(index)
+  }
+  if (canMove && !gameVersion) {
+    showStats(direction);
+    if (rightMovement == direction) {
+      cantAciertos++;
+      goToNextMove(direction);
+      showRightMovements(index);
+    }
+  }
 }
 
 function endGame() {

@@ -27,4 +27,4 @@ var gameSettings = {
 game.state.add('menu', demo.menu);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
-game.state.start('playGame');
+game.state.start('menu');
