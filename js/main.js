@@ -8,10 +8,11 @@ if (!window.orientation) {
 	gameY = 600;
 }
 if (window.orientation == 0 || window.orientation == 90 || window.orientation == -90) {
-	gameX = 420;
+	gameX = 400;
 	gamey = 500;
 	showControls = true;
 }
+
 
 var game = new Phaser.Game(gameX, gameY, Phaser.AUTO);
 game.parent = 'game-container';
@@ -43,4 +44,4 @@ var gameSettings = {
 game.state.add('menu', demo.menu);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
-game.state.start('playGame');
+game.state.start('menu');

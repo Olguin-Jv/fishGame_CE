@@ -97,3 +97,20 @@ function showRightMovements(idx) {
         aciertos.setText(`Has acertado: ${cantAciertos} de ${idx}`)
     }
 }
+
+///previene al usuario de abandonar la página
+// window.addEventListener("beforeunload", function (e) {
+//     var confirmationMessage = "\o/";
+
+//     e.returnValue = confirmationMessage;     // Gecko and Trident
+//     return confirmationMessage;              // Gecko and WebKit
+//   });
+
+// window.addEventListener("beforeunload", function (e) {
+//     var confirmationMessage = 'It looks like you have been editing something. '
+//         + 'If you leave before saving, your changes will be lost.';
+
+//     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+
+//     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+// });
