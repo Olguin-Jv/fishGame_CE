@@ -59,7 +59,7 @@ demo.playGame.prototype = {
     game.load.spritesheet('movementAlert', gameSettings.movementAlert, 320, 332, 2);
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
 
-    game.load.spritesheet('fish_ss', gameSettings.fishDemo, 347, 347, 12);
+    game.load.atlas('fishAtlas', './assets/player/spritesheet.png', './assets/player/sprites.json')
 
     txtEndGameStyle = { font: 'Staatliches', fontSize: '60px', fill: '#004bc4' }
     txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
@@ -139,44 +139,44 @@ demo.playGame.prototype = {
       start();
     }
 
-    fish1 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish1.animations.add('f1_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish1.animations.add('f1_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish1 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish1.animations.add('f1_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish1.animations.add('f1_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish1.alpha = 0;
     fish1.anchor.setTo(.5, .5);
     fish1.scale.setTo(.5);
 
-    fish2 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish2.animations.add('f2_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish2.animations.add('f2_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish2 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish2.animations.add('f2_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish2.animations.add('f2_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish2.alpha = 0;
     fish2.anchor.setTo(.5, .5);
     fish2.scale.setTo(.2);
 
-    fish3 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish3.animations.add('f3_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish3.animations.add('f3_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish3 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish3.animations.add('f3_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish3.animations.add('f3_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish3.alpha = 0;
     fish3.anchor.setTo(.5, .5);
     fish3.scale.setTo(.4);
 
-    fish4 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish4.animations.add('f4_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish4.animations.add('f4_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish4 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish4.animations.add('f4_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish4.animations.add('f4_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish4.alpha = 0;
     fish4.anchor.setTo(.5, .5);
     fish4.scale.setTo(.3);
 
-    fish5 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish5.animations.add('f5_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish5.animations.add('f5_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish5 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish5.animations.add('f5_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish5.animations.add('f5_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish5.alpha = 0;
     fish5.anchor.setTo(.5, .5);
     fish5.scale.setTo(.3);
 
-    fish6 = game.add.sprite(centerX, centerY, 'fish_ss');
-    fish6.animations.add('f6_blue', [0, 1, 2, 3, 4, 5], 10, true);
-    fish6.animations.add('f6_orange', [6, 7, 8, 9, 10, 11], 10, true);
+    fish6 = game.add.sprite(centerX, centerY, 'fishAtlas');
+    fish6.animations.add('f6_blue', Phaser.Animation.generateFrameNames('tile', 0, 5), 5, true);
+    fish6.animations.add('f6_orange', Phaser.Animation.generateFrameNames('tile', 6, 11), 5, true);
     fish6.alpha = 0;
     fish6.anchor.setTo(.5, .5);
     fish6.scale.setTo(.4);
@@ -345,7 +345,7 @@ function start() {
     canMove = true;
     refreshMovement(); //actualiza los datos de movimientos
     showCardNumber(index);
-    changeColor();
+    changeColor(testLevel[index].color);
     drawFishes(); //center fishes
     startDataColector();
 

@@ -1,0 +1,266 @@
+{
+    "frames": [
+        {
+            "filename": "tile0",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile1",
+            "frame": {
+                "x": 0,
+                "y": 348,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile2",
+            "frame": {
+                "x": 348,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile3",
+            "frame": {
+                "x": 348,
+                "y": 348,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile4",
+            "frame": {
+                "x": 0,
+                "y": 696,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile5",
+            "frame": {
+                "x": 348,
+                "y": 696,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile6",
+            "frame": {
+                "x": 696,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile7",
+            "frame": {
+                "x": 696,
+                "y": 348,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile8",
+            "frame": {
+                "x": 696,
+                "y": 696,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile9",
+            "frame": {
+                "x": 0,
+                "y": 1044,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile010",
+            "frame": {
+                "x": 348,
+                "y": 1044,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        },
+        {
+            "filename": "tile011",
+            "frame": {
+                "x": 696,
+                "y": 1044,
+                "w": 347,
+                "h": 347
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 347,
+                "h": 347
+            },
+            "sourceSize": {
+                "w": 347,
+                "h": 347
+            }
+        }
+    ],
+    "meta": {
+        "app": "https://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.4",
+        "image": "spritesheet.png",
+        "size": {
+            "w": 1043,
+            "h": 1391
+        },
+        "scale": 1
+    }
+}
