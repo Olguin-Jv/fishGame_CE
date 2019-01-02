@@ -1,14 +1,16 @@
 var demo = {};
 
-var centerX,
-  centerY,
-  gameWidth,
-  gameHeight;
 
 var startButton,
   demoButton;
 
 var gameVersion;
+
+var centerX,
+  centerY,
+  gameWidth, 
+  gameHeight;
+
 
 demo.menu = function () { };
 demo.menu.prototype = {
@@ -20,11 +22,10 @@ demo.menu.prototype = {
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-    gameWidth = game.world.width;
-    gameHeight = game.world.height;
-
-    centerX = game.world.centerX;
-    centerY = game.world.centerY;
+    centerX = game.world.width / 2,
+      centerY = game.world.height / 2,
+      gameWidth = game.world.width,
+      gameHeight = game.world.height;
 
     this.add.image(0, 0, 'background');
 
@@ -63,6 +64,7 @@ function startDemo() {
 
 function startTutorial() {
   changeState(null, 'instructions');
+  pageNum = 1;
   console.log("//////////////////////////////////////////////////////");
   console.log("Scene changed to: Instructions");
 }

@@ -11,8 +11,16 @@ if (window.orientation == 0 || window.orientation == 90 || window.orientation ==
 	gameX = 400;
 	gamey = 500;
 	showControls = true;
+	showRotate();
 }
 
+function showRotate(){
+    var rotate = document.getElementById('rotate');
+        rotate.classList.add('rotate');
+    var p = document.createElement('p');
+        p.innerHTML = 'Por favor rota el dispositivo';
+    rotate.appendChild(p);
+};
 
 var game = new Phaser.Game(gameX, gameY, Phaser.AUTO);
 game.parent = 'game-container';
