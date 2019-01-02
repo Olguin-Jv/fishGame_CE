@@ -59,6 +59,8 @@ demo.playGame.prototype = {
     game.load.spritesheet('movementAlert', gameSettings.movementAlert, 320, 332, 2);
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
 
+    game.load.spritesheet('fish_ss', gameSettings.fishDemo, 347, 347, 12);
+
     txtEndGameStyle = { font: 'Staatliches', fontSize: '60px', fill: '#004bc4' }
     txtInfoStyle = { font: 'Staatliches', fontSize: '20px', fill: '#004bc4' }
   },
@@ -423,3 +425,11 @@ function pressLeft() {
 function pressRight() {
   checkUserInput('right');
 };
+
+/*
+
+elem.animations.add(animName);
+elem.animations.play(animName, 10, true);
+
+
+ */

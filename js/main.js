@@ -32,6 +32,7 @@ game.resolution = window.devicePixelRatio / window.devicePixelRatio;
 var gameSettings = {
 	showRightMovements: true,
 	fishSprite: './assets/player/fishSprite.png',
+	fishDemo: './assets/player/fish_spritesheet.png',
 	fishHeight: 110,
 	fishWidth: 347,
 	backButton: './assets/view/back-button.png',
@@ -52,4 +53,5 @@ var gameSettings = {
 game.state.add('menu', demo.menu);
 game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
-game.state.start('menu');
+game.state.add('pruebas', demo.pruebas);
+game.state.start('pruebas');
