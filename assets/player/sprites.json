@@ -1,255 +1,255 @@
 {
     "frames": [
         {
-            "filename": "tile0",
+            "filename": "pez1",
             "frame": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile1",
+            "filename": "pez2",
             "frame": {
                 "x": 0,
-                "y": 348,
-                "w": 347,
-                "h": 347
+                "y": 301,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile2",
+            "filename": "pez3",
             "frame": {
-                "x": 348,
+                "x": 301,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile3",
+            "filename": "pez4",
             "frame": {
-                "x": 348,
-                "y": 348,
-                "w": 347,
-                "h": 347
+                "x": 301,
+                "y": 301,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile4",
+            "filename": "pez5",
             "frame": {
                 "x": 0,
-                "y": 696,
-                "w": 347,
-                "h": 347
+                "y": 602,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile5",
+            "filename": "pez6",
             "frame": {
-                "x": 348,
-                "y": 696,
-                "w": 347,
-                "h": 347
+                "x": 301,
+                "y": 602,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile6",
+            "filename": "pez7",
             "frame": {
-                "x": 696,
+                "x": 602,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile7",
+            "filename": "pez8",
             "frame": {
-                "x": 696,
-                "y": 348,
-                "w": 347,
-                "h": 347
+                "x": 602,
+                "y": 301,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile8",
+            "filename": "pez9",
             "frame": {
-                "x": 696,
-                "y": 696,
-                "w": 347,
-                "h": 347
+                "x": 602,
+                "y": 602,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile9",
+            "filename": "pez10",
             "frame": {
                 "x": 0,
-                "y": 1044,
-                "w": 347,
-                "h": 347
+                "y": 903,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile010",
+            "filename": "pez11",
             "frame": {
-                "x": 348,
-                "y": 1044,
-                "w": 347,
-                "h": 347
+                "x": 301,
+                "y": 903,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         },
         {
-            "filename": "tile011",
+            "filename": "pez12",
             "frame": {
-                "x": 696,
-                "y": 1044,
-                "w": 347,
-                "h": 347
+                "x": 602,
+                "y": 903,
+                "w": 300,
+                "h": 300
             },
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {
                 "x": 0,
                 "y": 0,
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             },
             "sourceSize": {
-                "w": 347,
-                "h": 347
+                "w": 300,
+                "h": 300
             }
         }
     ],
@@ -258,8 +258,8 @@
         "version": "Leshy SpriteSheet Tool v0.8.4",
         "image": "spritesheet.png",
         "size": {
-            "w": 1043,
-            "h": 1391
+            "w": 902,
+            "h": 1203
         },
         "scale": 1
     }
