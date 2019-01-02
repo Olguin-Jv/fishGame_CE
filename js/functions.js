@@ -73,8 +73,23 @@ function changeAngle(elem, direction) { //gira el sprite siguiendo el sentido qu
     }
 }
 
-function changeColor(elem, color) {
-    color == "blue" ? elem.frame = 0 : elem.frame = 1;
+function changeColor(color) {
+    if (color == 'blue') {
+        fish1.animations.play('f1_blue');
+        fish2.animations.play('f2_blue');
+        fish3.animations.play('f3_blue');
+        fish4.animations.play('f4_blue');
+        fish5.animations.play('f5_blue');
+        fish6.animations.play('f6_blue');
+    }
+    else{
+        fish1.animations.play('f1_orange');
+        fish2.animations.play('f2_orange');
+        fish3.animations.play('f3_orange');
+        fish4.animations.play('f4_orange');
+        fish5.animations.play('f5_orange');
+        fish6.animations.play('f6_orange');        
+    }
 }
 
 function fadeFish(elem) {

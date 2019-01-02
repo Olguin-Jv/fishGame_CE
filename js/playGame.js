@@ -139,32 +139,44 @@ demo.playGame.prototype = {
       start();
     }
 
-    fish1 = game.add.sprite(centerX, centerY, 'fish');
+    fish1 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish1.animations.add('f1_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish1.animations.add('f1_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish1.alpha = 0;
     fish1.anchor.setTo(.5, .5);
     fish1.scale.setTo(.5);
 
-    fish2 = game.add.sprite(centerX, centerY, 'fish');
+    fish2 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish2.animations.add('f2_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish2.animations.add('f2_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish2.alpha = 0;
     fish2.anchor.setTo(.5, .5);
     fish2.scale.setTo(.2);
 
-    fish3 = game.add.sprite(centerX, centerY, 'fish');
+    fish3 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish3.animations.add('f3_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish3.animations.add('f3_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish3.alpha = 0;
     fish3.anchor.setTo(.5, .5);
     fish3.scale.setTo(.4);
 
-    fish4 = game.add.sprite(centerX, centerY, 'fish');
+    fish4 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish4.animations.add('f4_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish4.animations.add('f4_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish4.alpha = 0;
     fish4.anchor.setTo(.5, .5);
     fish4.scale.setTo(.3);
 
-    fish5 = game.add.sprite(centerX, centerY, 'fish');
+    fish5 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish5.animations.add('f5_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish5.animations.add('f5_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish5.alpha = 0;
     fish5.anchor.setTo(.5, .5);
     fish5.scale.setTo(.3);
 
-    fish6 = game.add.sprite(centerX, centerY, 'fish');
+    fish6 = game.add.sprite(centerX, centerY, 'fish_ss');
+    fish6.animations.add('f6_blue', [0, 1, 2, 3, 4, 5], 10, true);
+    fish6.animations.add('f6_orange', [6, 7, 8, 9, 10, 11], 10, true);
     fish6.alpha = 0;
     fish6.anchor.setTo(.5, .5);
     fish6.scale.setTo(.4);
@@ -187,7 +199,7 @@ demo.playGame.prototype = {
     if (showControls) {
       var upKeyX = game.world.centerX;
       var upKeyY = 465;
-      
+
       this.buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
       this.buttonUp.anchor.setTo(.5, .5);
       this.buttonUp.scale.setTo(.7);
@@ -286,27 +298,21 @@ function drawFishes() {
   fishFadeIn(fish1);
   changeAngle(fish1, viewDirection);
   centerFish(fish1, 0, 0);
-  changeColor(fish1, testLevel[index].color);
   fishFadeIn(fish2);
   changeAngle(fish2, viewDirection);
   centerFish(fish2, -100, -40);
-  changeColor(fish2, testLevel[index].color);
   fishFadeIn(fish3);
   changeAngle(fish3, viewDirection);
   centerFish(fish3, 40, -100);
-  changeColor(fish3, testLevel[index].color);
   fishFadeIn(fish4);
   changeAngle(fish4, viewDirection);
   centerFish(fish4, +110, +80);
-  changeColor(fish4, testLevel[index].color);
   fishFadeIn(fish5);
   changeAngle(fish5, viewDirection);
   centerFish(fish5, -30, -80);
-  changeColor(fish5, testLevel[index].color);
   fishFadeIn(fish6);
   changeAngle(fish6, viewDirection);
   centerFish(fish6, +80, 40);
-  changeColor(fish6, testLevel[index].color);
 }
 function updateFish(elem) {
   moveFish(elem);
@@ -339,7 +345,7 @@ function start() {
     canMove = true;
     refreshMovement(); //actualiza los datos de movimientos
     showCardNumber(index);
-
+    changeColor();
     drawFishes(); //center fishes
     startDataColector();
 
@@ -360,7 +366,7 @@ function goToNextMove(arrowPressed) { /*se ejecuta si el movimiento es correcto*
       canMove = true;
       showCardNumber(index);
       refreshMovement();
-
+      changeColor(testLevel[index].color);
       drawFishes();
       startDataColector();
       fade = true;
