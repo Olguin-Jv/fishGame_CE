@@ -9,7 +9,6 @@ demo.instructions = function () {
     this.txt1_2 = "y una cola."
     this.txt2 = "Cada vez que vea el pez azul deberá presionar la flecha indicando hacia donde está el frente.";
     this.txt3 = "Si aparece el pez Rojo, debera presionar la flecha que indique hacia donde se está moviendo."
-
 };
 
 var pageNum = 1;
@@ -38,7 +37,7 @@ demo.instructions.prototype = {
         this.upKeyOriginX = gameWidth/3;
         this.upkeyOriginY = 340;
 
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.stage.disableVisibilityChange = true;
 
         this.background = this.add.image(centerX, centerY, 'background');
@@ -49,6 +48,7 @@ demo.instructions.prototype = {
         this.titleStyle = { fontSize: '30px', fontWeight: 'bold', font: 'Lato', fill: '#fff', align: 'center' };
         this.txtStyle = { fontSize: '24px', font: 'Montserrat', fill: '#fff', align: 'left', wordWrap: true, wordWrapWidth: gameWidth*.9 };
         this.buttonStyle = { fontSize: '24px', font: 'Montserrat' };
+        this.buttonStyleMobile = { fontSize: '20px', font: 'Montserrat' };
 
         /*fonts en blanco,
         font Lato
@@ -105,19 +105,6 @@ demo.instructions.prototype = {
         blueArrowDown.angle = -90;
         blueArrowDown.alpha = 0;
 
-        // arrowUp = game.add.image(gameWidth*.666, game.world.centerY, 'blueArrow');
-        // arrowUp.anchor.setTo(.5, .5);
-        // arrowUp.scale.setTo(.1);
-        // arrowUp.angle = -90;
-        // arrowUp.alpha = 0;
-
-        // arrowLeft = game.add.image(game.world.centerX + 250, 140, 'blueArrow');
-        // arrowLeft.anchor.setTo(.5, .5);
-        // arrowLeft.scale.setTo(.1);
-        // // arrowLeft.angle = -90;
-        // arrowLeft.alpha = 0;
-
-
         fish = this.add.sprite(game.world.centerX + 25, game.world.centerY + 20, 'fish');
         fish.anchor.setTo(.5, .5);
         fish.scale.setTo(.5);
@@ -138,20 +125,35 @@ demo.instructions.prototype = {
         this.anterior.scale.setTo(.3);
         this.anterior.angle = -180;
 
-        // this.homeButton = this.add.button(game.world.centerX - 125, 550, 'homeButton', backToMenu);
-        // this.homeButton.anchor.setTo(.5, .5);
-        // this.homeButton.scale.setTo(.8);
-        // this.add.text(game.world.centerX - 125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
+        //cambio la posición de los botones según el dispositivo    
+        if (userDevice == "Smartphone"){
+            this.homeButton = this.add.button(centerX, gameHeight-25, 'homeButton', backToMenu);
+            this.add.text(centerX, gameHeight-25, 'Volver al menú', this.buttonStyleMobile).anchor.setTo(.5, .5);
+            this.homeButton.scale.setTo(.7);
 
-        // this.demoButton = this.add.button(game.world.centerX + 125, 550, 'homeButton', goDemoMode);
-        // this.demoButton.anchor.setTo(.5, .5);
-        // this.demoButton.scale.setTo(.8);
-        // this.add.text(game.world.centerX + 125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
+            this.demoButton = this.add.button(centerX, gameHeight-75, 'homeButton', goDemoMode);
+            this.add.text(centerX, gameHeight-75, 'Jugar prueba', this.buttonStyleMobile).anchor.setTo(.5, .5)
+            this.demoButton.scale.setTo(.7);
+            
+        } else {
+            this.homeButton = this.add.button(centerX - 125, 550, 'homeButton', backToMenu);
+            this.add.text(centerX - 125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
+            this.homeButton.scale.setTo(.8);
+            
+            this.demoButton = this.add.button(centerX + 125, 550, 'homeButton', goDemoMode);
+            this.add.text(centerX + 125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
+            this.demoButton.scale.setTo(.8);
+        }
+        this.homeButton.anchor.setTo(.5, .5);
 
-        // function goDemoMode() {
-        //     game.state.start('playGame');
-        //     gameVersion = false;
-        // };
+        this.demoButton.anchor.setTo(.5, .5);
+
+        
+
+        function goDemoMode() {
+            game.state.start('playGame');
+            gameVersion = false;
+        };
 
         function prevPage() {
             scroll = false;
@@ -179,9 +181,6 @@ demo.instructions.prototype = {
                     fadeOut(keyLeft);
                     fadeOut(keyRight);
 
-                    // pulseArrowUp.pause();
-                    // fadeOut(arrowUp);
-
                     pageNum--;
                     break;
                 case 3:
@@ -190,17 +189,13 @@ demo.instructions.prototype = {
                     rightKeyPressed.pause();
                     upKeyPressed.start();
                     upKeyPressed.resume();
-                    // fadeIn(arrowUp);
-                    // pressButton(arrowUp, .15, 0);
+
                     fadeIn(fish);
                     orangeFishToRight.pause();
                     orangeFishOut.pause();
                     orangeFishIn.pause();
                     fadeOutFish2.start();
                     fadeOut(texto3);
-
-                    // fadeOut(arrowLeft);// ARROW LEFT OUT
-                    // pulseArrowLeft.pause();
 
                     pageNum--;
                     break;
@@ -247,16 +242,11 @@ demo.instructions.prototype = {
                     upKeyPressed.start();
                     upKeyPressed.resume();
 
-                    // fadeIn(arrowUp);
-                    // pulseArrowUp.start();
-                    // pulseArrowUp.resume();
-
                     pageNum++;
                     break;
                 case 2:
                     fadeOut(texto2);
-                    // pulseArrowUp.pause();
-                    // fadeOut(arrowUp);
+
                     fadeOut(fish);
                     upKeyPressed.pause();
                     rightKeyPressed.start();
@@ -266,10 +256,6 @@ demo.instructions.prototype = {
                     orangeFishOut.resume();
                     orangeFishIn.resume();
                     fadeIn(texto3);
-
-                    // fadeIn(arrowLeft);//ARROW LEFT IN
-                    // pulseArrowLeft.start();
-                    // pulseArrowLeft.resume();
 
                     pageNum++
                     break;
@@ -302,9 +288,6 @@ demo.instructions.prototype = {
 
         var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
         var rightKeyPressed = game.add.tween(keyRight.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
-        // var pulseArrowUp = game.add.tween(arrowUp.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
-        // var pulseArrowLeft = game.add.tween(arrowLeft.scale).to({ x: .15, y: .15 }, 750, 'Linear', false, 0, -1, true);
-
 
         function fadeIn(elem, delay) {
             var elemIn = game.add.tween(elem).to({ alpha: 1, x: '-25' }, 500, 'Linear', true, delay, 0, false);

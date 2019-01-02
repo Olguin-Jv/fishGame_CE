@@ -2,16 +2,19 @@ var gameX,
 	gameY,
 	showControls = false;
 
+var userDevice = WURFL.form_factor;
 
-if (!window.orientation) {
+if ( userDevice == 'Desktop') {
 	gameX = 800;
 	gameY = 600;
+	console.log("estas en desktop");
 }
-if (window.orientation == 0 || window.orientation == 90 || window.orientation == -90) {
+if (userDevice == "Smartphone") {
 	gameX = 400;
 	gamey = 500;
 	showControls = true;
 	showRotate();
+	// alert('estas en un smartphone');
 }
 
 function showRotate(){
