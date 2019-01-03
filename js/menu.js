@@ -16,12 +16,11 @@ demo.menu.prototype = {
   },
   create: function () {
 
-    if (userDevice === 'Tablet') {
-      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-      // alert("usando modo RESIZE");
-    } else {
+    if (userDevice == "Smartphone") {
       game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-      // alert("usando modos SHOW_ALL");
+    }
+    if (userDevice != "Smartphone"){
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     }
 
     centerX = game.world.width / 2;
@@ -51,7 +50,8 @@ demo.menu.prototype = {
 
   },
   resize: function () {
-    
+
+
     centerX = game.world.width / 2;
     centerY = game.world.height / 2;
     gameWidth = game.world.width;

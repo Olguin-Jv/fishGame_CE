@@ -24,7 +24,6 @@ canvas {
     background-color: lightblue;
 }
 
-
 .rotate{
     position: absolute;
     height: 100vh;
@@ -45,8 +44,8 @@ canvas {
 @media screen and (orientation:portrait) {
     .rotate {display: none}
     /* #game-container{max-width: 95%;} */
-
 }
+
 @media screen and (orientation:landscape) {
     .rotate {display: flex}
 }

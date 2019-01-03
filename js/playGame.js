@@ -1,10 +1,11 @@
 //fondo
-var prof1,
-  prof2,
-  prof3,
-  prof4,
+var prof1, prof1_wave,
+  prof2, prof2_wave,
+  prof3, prof3_wave,
+  prof4, prof4_wave,
   algaLeft,
-  algaRight;
+  algaRight, algaRightMove,
+  canResize = false;
 
 //sprites
 var arrow,
@@ -38,6 +39,14 @@ var txtInfoStyle,
   style,
   txtEndGameStyle;
 
+var upKeyX,
+  upKeyY,
+  buttonUp, 
+  buttonDown,
+  buttonLeft,
+  buttonRight;
+
+
 demo.playGame = function () { };
 
 demo.playGame.prototype = {
@@ -67,14 +76,6 @@ demo.playGame.prototype = {
 
   create: function () {
 
-    if (userDevice === 'Tablet') {
-      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-      // alert("usando modo RESIZE");
-    } else {
-      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-      alert("usando modo SHOW_ALL");
-    }
-
     this.stage.disableVisibilityChange = true;
 
     gameWidth = game.world.width;
@@ -102,8 +103,8 @@ demo.playGame.prototype = {
     algaRightIn.onComplete.add(algaRightOn, this);
     algaRightIn.start();
     function algaRightOn() {
-      game.add.tween(algaRight).to({ x: '-10', angle: -6 }, 4000, 'Bounce.easeInOut', true, 0, -1, true);
-    }
+      algaRightMove = game.add.tween(algaRight).to({ angle: -6 }, 4000, 'Bounce.easeInOut', true, 0, -1, true);
+    };
 
     prof1 = game.add.image(centerX, centerY, 'prof1');
     prof1.alpha = 0;
@@ -112,7 +113,7 @@ demo.playGame.prototype = {
     prof1In.onComplete.add(prof1_move, this);
     prof1In.start();
     function prof1_move() {
-      game.add.tween(prof1).to({ x: '-10', y: '-10' }, 15000, "Bounce.easeInOut", true, 0, -1, true)
+      prof1_wave = game.add.tween(prof1).to({ angle: -6, y: '-10' }, 15000, "Bounce.easeInOut", true, 0, -1, true)
     }
 
     prof2 = game.add.image(centerX, centerY, 'prof2');
@@ -122,7 +123,7 @@ demo.playGame.prototype = {
     prof2In.onComplete.add(prof2_move, this);
     prof2In.start();
     function prof2_move() {
-      game.add.tween(prof2).to({ x: '-10', y: '-10' }, 15000, "Bounce.easeInOut", true, 1000, -1, true)
+      prof2_wave = game.add.tween(prof2).to({ angle: -7, y: '-10' }, 15000, "Bounce.easeInOut", true, 1000, -1, true)
     }
 
     prof3 = game.add.image(centerX, centerY, 'prof3');
@@ -132,7 +133,7 @@ demo.playGame.prototype = {
     prof3In.onComplete.add(prof3_move, this);
     prof3In.start();
     function prof3_move() {
-      game.add.tween(prof3).to({ x: '-20', y: '+15' }, 15000, "Bounce.easeInOut", true, 2000, -1, true)
+      prof3_wave = game.add.tween(prof3).to({ angle: -6, y: '+15' }, 15000, "Bounce.easeInOut", true, 2000, -1, true)
     }
 
     prof4 = game.add.image(centerX, centerY, 'prof4');
@@ -142,8 +143,9 @@ demo.playGame.prototype = {
     prof4In.onComplete.add(prof4_move, this);
     prof4In.start();
     function prof4_move() {
-      game.add.tween(prof4).to({ x: '-10', y: '-10' }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
+      prof4_wave = game.add.tween(prof4).to({ angle: 6, y: '-10' }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
       console.log('Preparing PlayGame');
+      canResize = true;
       start();
     }
 
@@ -206,24 +208,24 @@ demo.playGame.prototype = {
 
 
     if (showControls) {
-      var upKeyX = game.world.centerX;
-      var upKeyY = 465;
+      upKeyX = game.world.centerX;
+      upKeyY = 465;
 
-      this.buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
-      this.buttonUp.anchor.setTo(.5, .5);
-      this.buttonUp.scale.setTo(.7);
+      buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
+      buttonUp.anchor.setTo(.5, .5);
+      buttonUp.scale.setTo(.7);
 
-      this.buttonDown = this.add.button(upKeyX, upKeyY + 75, 'downKey', pressDown);
-      this.buttonDown.anchor.setTo(.5, .5);
-      this.buttonDown.scale.setTo(.7);
+      buttonDown = this.add.button(upKeyX, upKeyY + 75, 'downKey', pressDown);
+      buttonDown.anchor.setTo(.5, .5);
+      buttonDown.scale.setTo(.7);
 
-      this.buttonLeft = this.add.button(upKeyX - 71, upKeyY + 75, 'leftKey', pressLeft);
-      this.buttonLeft.anchor.setTo(.5, .5);
-      this.buttonLeft.scale.setTo(.7);
+      buttonLeft = this.add.button(upKeyX - 71, upKeyY + 75, 'leftKey', pressLeft);
+      buttonLeft.anchor.setTo(.5, .5);
+      buttonLeft.scale.setTo(.7);
 
-      this.buttonRight = this.add.button(upKeyX + 71, upKeyY + 75, 'rightKey', pressRight);
-      this.buttonRight.anchor.setTo(.5, .5);
-      this.buttonRight.scale.setTo(.7);
+      buttonRight = this.add.button(upKeyX + 71, upKeyY + 75, 'rightKey', pressRight);
+      buttonRight.anchor.setTo(.5, .5);
+      buttonRight.scale.setTo(.7);
     }
 
     var keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -260,10 +262,26 @@ demo.playGame.prototype = {
 
     gameWidth = game.world.width;
     gameHeight = game.world.height;
+    centerX = game.world.centerX;
+    centerY = game.world.centerY;
 
-    aciertos.x = gameWidth * .66;
+    if (canResize) {
 
-    document.getElementById('debug').innerHTML = gameWidth;
+      algaRight.x = gameWidth - 90;
+      prof1.x = centerX;
+      prof2.x = centerX;
+      prof3.x = centerX;
+      prof4.x = centerX;
+      aciertos.x = gameWidth * .70;
+
+      buttonUp.x = centerX;
+      buttonDown.x = centerX;
+      buttonLeft.x = centerX - 71;
+      buttonRight.x = centerX + 71;
+
+    }
+
+  document.getElementById('debug').innerHTML = gameWidth;
 
   },
   update: function () {

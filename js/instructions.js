@@ -37,7 +37,6 @@ demo.instructions.prototype = {
         this.upKeyOriginX = gameWidth/3;
         this.upkeyOriginY = 340;
 
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.stage.disableVisibilityChange = true;
 
         this.background = this.add.image(centerX, centerY, 'background');

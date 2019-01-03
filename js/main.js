@@ -9,13 +9,15 @@ if ( userDevice === 'Desktop') {
 	gameY = 600;
 }
 if (userDevice === "Smartphone") {
+	showControls = true;
 	gameX = 400;
 	gamey = 500;
-	showControls = true;
 	showRotate();
 }
 if(userDevice === 'Tablet'){
 	showControls = true;
+	gameX = 600;
+	gamey = 400;
 	// alert('is tablet');
 }
 
