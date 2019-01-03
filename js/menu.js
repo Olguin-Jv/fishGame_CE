@@ -1,14 +1,10 @@
 var demo = {};
 
-
-var startButton,
-  demoButton;
-
 var gameVersion;
 
 var centerX,
   centerY,
-  gameWidth, 
+  gameWidth,
   gameHeight;
 
 
@@ -20,33 +16,67 @@ demo.menu.prototype = {
   },
   create: function () {
 
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    if (userDevice === 'Tablet') {
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      // alert("usando modo RESIZE");
+    } else {
+      game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      // alert("usando modos SHOW_ALL");
+    }
 
-    centerX = game.world.width / 2,
-      centerY = game.world.height / 2,
-      gameWidth = game.world.width,
-      gameHeight = game.world.height;
+    centerX = game.world.width / 2;
+    centerY = game.world.height / 2;
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
 
-    this.add.image(0, 0, 'background');
+    this.bkg = this.add.image(centerX, centerY, 'background');
+    this.bkg.anchor.setTo(.5);
 
     this.menuStyle = { font: 'Montserrat', fontSize: '32px', fill: '#000000' }
 
-    startButton = game.add.button(centerX, centerY - 100, 'button', startGame);
-    startButton.anchor.setTo(0.5, 0.5);
-    startGameTxt = game.add.text(centerX, centerY - 100, 'Play Game', this.menuStyle)
-    startGameTxt.anchor.setTo(.5, .5);
-    startGameTxt.stroke = '#000000';
-    // startGameTxt.strokeThickness = 3;
+    this.startBtn = game.add.button(centerX, centerY - 100, 'button', startGame);
+    this.startBtn.anchor.setTo(0.5, 0.5);
+    this.startTxt = game.add.text(centerX, centerY - 100, 'Play Game', this.menuStyle)
+    this.startTxt.anchor.setTo(.5, .5);
 
-    demoButton = game.add.button(centerX, centerY - 25, 'button', startDemo);
-    demoButton.anchor.setTo(0.5, 0.5);
-    this.startDemo = this.add.text(centerX, centerY - 25, 'Play Demo', this.menuStyle).anchor.setTo(.5, .5);
+    this.demoBtn = game.add.button(centerX, centerY - 25, 'button', startDemo);/* */
+    this.demoBtn.anchor.setTo(0.5, 0.5);
+    this.demoTxt = this.add.text(centerX, centerY - 25, 'Play demo', this.menuStyle);
+    this.demoTxt.anchor.setTo(.5, .5);
 
-    tutorial = game.add.button(centerX, centerY + 50, 'button', startTutorial);
-    tutorial.anchor.setTo(0.5, 0.5);
-    this.startTutorial = this.add.text(centerX, centerY + 50, 'Tutorial', this.menuStyle).anchor.setTo(.5, .5);
+    this.tutorialBtn = game.add.button(centerX, centerY + 50, 'button', startTutorial);
+    this.tutorialBtn.anchor.setTo(0.5, 0.5);
+    this.tutorialTxt = this.add.text(centerX, centerY + 50, 'Tutorial', this.menuStyle)
+    this.tutorialTxt.anchor.setTo(.5, .5);
+
   },
+  resize: function () {
+    
+    centerX = game.world.width / 2;
+    centerY = game.world.height / 2;
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
+
+    this.bkg.x = centerX;
+    this.bkg.y = centerY;
+
+    this.startBtn.x = centerX;
+    this.startBtn.y = centerY - 100;
+    this.startTxt.x = centerX;
+    this.startTxt.y = centerY - 100;
+
+    this.demoBtn.x = centerX;
+    this.demoBtn.y = centerY - 25;
+    this.demoTxt.x = centerX;
+    this.demoTxt.y = centerY - 25;
+
+    this.tutorialBtn.x = centerX;
+    this.tutorialBtn.y = centerY + 50;
+    this.tutorialTxt.x = centerX;
+    this.tutorialTxt.y = centerY + 50;
+  }
 };
+
 
 function startGame() {
   changeState(null, 'playGame');

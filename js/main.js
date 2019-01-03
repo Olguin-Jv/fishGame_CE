@@ -4,17 +4,19 @@ var gameX,
 
 var userDevice = WURFL.form_factor;
 
-if ( userDevice == 'Desktop') {
+if ( userDevice === 'Desktop') {
 	gameX = 800;
 	gameY = 600;
-	console.log("estas en desktop");
 }
-if (userDevice == "Smartphone") {
+if (userDevice === "Smartphone") {
 	gameX = 400;
 	gamey = 500;
 	showControls = true;
 	showRotate();
-	// alert('estas en un smartphone');
+}
+if(userDevice === 'Tablet'){
+	showControls = true;
+	// alert('is tablet');
 }
 
 function showRotate(){
@@ -58,3 +60,19 @@ game.state.add('instructions', demo.instructions);
 game.state.add('playGame', demo.playGame);
 game.state.add('pruebas', demo.pruebas);
 game.state.start('menu');
+
+
+// function readDeviceOrientation() {
+                 		
+//     if (Math.abs(window.orientation) === 90) {
+//         // Landscape
+//         alert('landscape')
+//     } else {
+//     	// Portrait
+//     	alert("portrait")
+//     }
+// }
+
+// window.onorientationchange = readDeviceOrientation;
+
+

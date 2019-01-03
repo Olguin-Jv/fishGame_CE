@@ -17,6 +17,7 @@ body {
 
 #game-container {
     max-width: 800px;
+    margin: 0 auto;
 }
 
 canvas {
@@ -43,6 +44,8 @@ canvas {
 
 @media screen and (orientation:portrait) {
     .rotate {display: none}
+    /* #game-container{max-width: 95%;} */
+
 }
 @media screen and (orientation:landscape) {
     .rotate {display: flex}

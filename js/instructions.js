@@ -2,13 +2,13 @@
 
 demo.instructions = function () {
 
-
     this.fish;
     this.titulo = "INSTRUCCIONES";
     this.txt1 = "Este pez tiene un frente";
     this.txt1_2 = "y una cola."
     this.txt2 = "Cada vez que vea el pez azul deberá presionar la flecha indicando hacia donde está el frente.";
     this.txt3 = "Si aparece el pez Rojo, debera presionar la flecha que indique hacia donde se está moviendo."
+    
 };
 
 var pageNum = 1;
@@ -25,9 +25,9 @@ demo.instructions.prototype = {
         this.load.image('background', gameSettings.background);
         this.load.image('button', gameSettings.tutorialArrow);
         this.load.image('homeButton', './assets/view/button2.png');
+            
     },
     create: function () {
-
 
         centerX = game.world.width / 2,
             centerY = game.world.height / 2,
@@ -37,7 +37,7 @@ demo.instructions.prototype = {
         this.upKeyOriginX = gameWidth/3;
         this.upkeyOriginY = 340;
 
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.stage.disableVisibilityChange = true;
 
         this.background = this.add.image(centerX, centerY, 'background');

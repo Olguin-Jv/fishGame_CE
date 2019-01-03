@@ -66,7 +66,15 @@ demo.playGame.prototype = {
   },
 
   create: function () {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    if (userDevice === 'Tablet') {
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      // alert("usando modo RESIZE");
+    } else {
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      alert("usando modo SHOW_ALL");
+    }
+
     this.stage.disableVisibilityChange = true;
 
     gameWidth = game.world.width;
@@ -248,7 +256,16 @@ demo.playGame.prototype = {
     movAlert.alpha = 0;
 
   },
+  resize: function () {
 
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
+
+    aciertos.x = gameWidth * .66;
+
+    document.getElementById('debug').innerHTML = gameWidth;
+
+  },
   update: function () {
 
     updateFish(fish1);
@@ -441,15 +458,15 @@ elem.animations.play(animName, 10, true);
 
  */
 
-function readDeviceOrientation() {
-                 		
-  if (Math.abs(window.orientation) === 90) {
-      // Landscape
-      document.getElementById("orientation").innerHTML = "LANDSCAPE";
-  } else {
-    // Portrait
-    document.getElementById("orientation").innerHTML = "PORTRAIT";
-  }
-}
+// function readDeviceOrientation() {
 
-window.onorientationchange = readDeviceOrientation;
+//   if (Math.abs(window.orientation) === 90) {
+//       // Landscape
+//       document.getElementById("orientation").innerHTML = "LANDSCAPE";
+//   } else {
+//     // Portrait
+//     document.getElementById("orientation").innerHTML = "PORTRAIT";
+//   }
+// }
+
+// window.onorientationchange = readDeviceOrientation;
