@@ -8,7 +8,7 @@ demo.instructions = function () {
     this.txt1_2 = "y una cola."
     this.txt2 = "Cada vez que vea el pez azul deberá presionar la flecha indicando hacia donde está el frente.";
     this.txt3 = "Si aparece el pez Rojo, debera presionar la flecha que indique hacia donde se está moviendo."
-    
+
 };
 
 var pageNum = 1;
@@ -25,16 +25,16 @@ demo.instructions.prototype = {
         this.load.image('background', gameSettings.background);
         this.load.image('button', gameSettings.tutorialArrow);
         this.load.image('homeButton', './assets/view/button2.png');
-            
+
     },
     create: function () {
 
-        centerX = game.world.width / 2,
-            centerY = game.world.height / 2,
-            gameWidth = game.world.width,
-            gameHeight = game.world.height;
+        centerX = game.world.width / 2;
+        centerY = game.world.height / 2;
+        gameWidth = game.world.width;
+        gameHeight = game.world.height;
 
-        this.upKeyOriginX = gameWidth/3;
+        this.upKeyOriginX = gameWidth / 3;
         this.upkeyOriginY = 340;
 
         this.stage.disableVisibilityChange = true;
@@ -45,7 +45,7 @@ demo.instructions.prototype = {
         this.bgIn = this.add.tween(this.background).to({ alpha: 1 }, 1000, 'Linear', true, 0, 0, false);
 
         this.titleStyle = { fontSize: '30px', fontWeight: 'bold', font: 'Lato', fill: '#fff', align: 'center' };
-        this.txtStyle = { fontSize: '24px', font: 'Montserrat', fill: '#fff', align: 'left', wordWrap: true, wordWrapWidth: gameWidth*.9 };
+        this.txtStyle = { fontSize: '24px', font: 'Montserrat', fill: '#fff', align: 'left', wordWrap: true, wordWrapWidth: gameWidth * .9 };
         this.buttonStyle = { fontSize: '24px', font: 'Montserrat' };
         this.buttonStyleMobile = { fontSize: '20px', font: 'Montserrat' };
 
@@ -109,45 +109,46 @@ demo.instructions.prototype = {
         fish.scale.setTo(.5);
         fish.alpha = 0;
 
-        fish2 = this.add.sprite(gameWidth*.666, game.world.centerY + 20, 'fish');
+        fish2 = this.add.sprite(gameWidth * .666, game.world.centerY + 20, 'fish');
         fish2.anchor.setTo(.5, .5);
         fish2.scale.setTo(.5);
         fish2.alpha = 0;
         fish2.frame = 1;
 
-        this.siguiente = this.add.button(gameWidth*.9, 550, 'button', nextPage);
+        this.siguiente = this.add.button(gameWidth * .9, 550, 'button', nextPage);
         this.siguiente.anchor.setTo(.5, .5);
         this.siguiente.scale.setTo(.3);
 
-        this.anterior = this.add.button(gameWidth*.1, 550, 'button', prevPage);
+        this.anterior = this.add.button(gameWidth * .1, 550, 'button', prevPage);
         this.anterior.anchor.setTo(.5, .5);
         this.anterior.scale.setTo(.3);
         this.anterior.angle = -180;
 
         //cambio la posición de los botones según el dispositivo    
-        if (userDevice == "Smartphone"){
-            this.homeButton = this.add.button(centerX, gameHeight-25, 'homeButton', backToMenu);
-            this.add.text(centerX, gameHeight-25, 'Volver al menú', this.buttonStyleMobile).anchor.setTo(.5, .5);
+        if (userDevice == "Smartphone") {
+            this.homeButton = this.add.button(centerX, gameHeight - 25, 'homeButton', backToMenu);
+            this.add.text(centerX, gameHeight - 25, 'Volver al menú', this.buttonStyleMobile).anchor.setTo(.5, .5);
             this.homeButton.scale.setTo(.7);
 
-            this.demoButton = this.add.button(centerX, gameHeight-75, 'homeButton', goDemoMode);
-            this.add.text(centerX, gameHeight-75, 'Jugar prueba', this.buttonStyleMobile).anchor.setTo(.5, .5)
+            this.demoButton = this.add.button(centerX, gameHeight - 75, 'homeButton', goDemoMode);
+            this.add.text(centerX, gameHeight - 75, 'Jugar prueba', this.buttonStyleMobile).anchor.setTo(.5, .5)
             this.demoButton.scale.setTo(.7);
-            
+
         } else {
-            this.homeButton = this.add.button(centerX - 125, 550, 'homeButton', backToMenu);
-            this.add.text(centerX - 125, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
+            this.homeButton = this.add.button(centerX*.666, 550, 'homeButton', backToMenu);
             this.homeButton.scale.setTo(.8);
             
-            this.demoButton = this.add.button(centerX + 125, 550, 'homeButton', goDemoMode);
-            this.add.text(centerX + 125, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
+            this.demoButton = this.add.button(centerX*1.333, 550, 'homeButton', goDemoMode);
             this.demoButton.scale.setTo(.8);
+     
+            this.demoBtnTxt = this.add.text(centerX*1.333, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
+            this.homeBtnTxt = this.add.text(centerX*.666, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
         }
         this.homeButton.anchor.setTo(.5, .5);
 
         this.demoButton.anchor.setTo(.5, .5);
 
-        
+
 
         function goDemoMode() {
             game.state.start('playGame');
@@ -297,11 +298,11 @@ demo.instructions.prototype = {
         }
 
         function moveLeft(elem) {
-            var toLeft = game.add.tween(elem).to({ x: centerX}, 500, 'Linear', true, 0, 0, false);
+            var toLeft = game.add.tween(elem).to({ x: centerX }, 500, 'Linear', true, 0, 0, false);
         }
 
         function moveRight(elem) {
-            var toRight = game.add.tween(elem).to({ x: gameWidth*.666 }, 500, 'Linear', true, 0, 0, false);
+            var toRight = game.add.tween(elem).to({ x: gameWidth * .666 }, 500, 'Linear', true, 0, 0, false);
         }
 
         var fadeOutFish2 = game.add.tween(fish2).to({ alpha: 0, x: '+25' }, 250, 'Linear', false, 0, 0, false);
@@ -337,6 +338,7 @@ demo.instructions.prototype = {
 
             interval = setInterval(function () {
                 if (scroll) nextPage();
+                console.log("next page");
             }, 10000);
 
         }
@@ -348,6 +350,27 @@ demo.instructions.prototype = {
         txt1_2_in.start();
         blueArrowUp_In.start();
         blueArrowDown_In.start();
+
+    },
+    resize: function () {
+        centerX = game.world.width / 2;
+        centerY = game.world.height / 2;
+        gameWidth = game.world.width;
+        gameHeight = game.world.height;
+
+        this.background.x = centerX;
+
+        blueArrowUp.x = centerX;
+        blueArrowDown = centerY;
+
+        this.siguiente.x = gameWidth * .9;
+        this.anterior.x = gameWidth * .1;
+
+        this.homeBtnTxt.x = centerX*.666;
+        this.demoBtnTxt.x = centerX*1.333;
+
+        this.homeButton.x = centerX*.666;
+        this.demoButton.x = centerX*1.333;
 
     }
 }
