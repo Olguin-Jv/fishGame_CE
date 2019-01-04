@@ -265,11 +265,13 @@ demo.playGame.prototype = {
 
       if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
         // Landscape
-        refreshCoordinates()
+        refreshCoordinates();
+        resizeCanvas();
         tabletOrientation = 'Landscape';
       } else if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) == 0) {
         // Portrait
-        refreshCoordinates()
+        refreshCoordinates();
+        resizeCanvas();
         tabletOrientation = 'Portrait';
       }
     }
