@@ -41,7 +41,7 @@ var txtInfoStyle,
 
 var upKeyX,
   upKeyY,
-  buttonUp, 
+  buttonUp,
   buttonDown,
   buttonLeft,
   buttonRight;
@@ -78,10 +78,7 @@ demo.playGame.prototype = {
 
     this.stage.disableVisibilityChange = true;
 
-    gameWidth = game.world.width;
-    gameHeight = game.world.height;
-    centerX = game.world.centerX;
-    centerY = game.world.centerY;
+    refreshCoordinates();
 
     algaLeft = game.add.image(90, 0, 'algaLeft');
     algaLeft.anchor.setTo(0.5, 0);
@@ -113,7 +110,7 @@ demo.playGame.prototype = {
     prof1In.onComplete.add(prof1_move, this);
     prof1In.start();
     function prof1_move() {
-      prof1_wave = game.add.tween(prof1).to({ angle: -6, y: '-10' }, 15000, "Bounce.easeInOut", true, 0, -1, true)
+      prof1_wave = game.add.tween(prof1).to({ angle: -6}, 15000, "Bounce.easeInOut", true, 0, -1, true)
     }
 
     prof2 = game.add.image(centerX, centerY, 'prof2');
@@ -123,7 +120,7 @@ demo.playGame.prototype = {
     prof2In.onComplete.add(prof2_move, this);
     prof2In.start();
     function prof2_move() {
-      prof2_wave = game.add.tween(prof2).to({ angle: -7, y: '-10' }, 15000, "Bounce.easeInOut", true, 1000, -1, true)
+      prof2_wave = game.add.tween(prof2).to({ angle: -7}, 15000, "Bounce.easeInOut", true, 1000, -1, true)
     }
 
     prof3 = game.add.image(centerX, centerY, 'prof3');
@@ -133,7 +130,7 @@ demo.playGame.prototype = {
     prof3In.onComplete.add(prof3_move, this);
     prof3In.start();
     function prof3_move() {
-      prof3_wave = game.add.tween(prof3).to({ angle: -6, y: '+15' }, 15000, "Bounce.easeInOut", true, 2000, -1, true)
+      prof3_wave = game.add.tween(prof3).to({ angle: -6}, 15000, "Bounce.easeInOut", true, 2000, -1, true)
     }
 
     prof4 = game.add.image(centerX, centerY, 'prof4');
@@ -143,7 +140,7 @@ demo.playGame.prototype = {
     prof4In.onComplete.add(prof4_move, this);
     prof4In.start();
     function prof4_move() {
-      prof4_wave = game.add.tween(prof4).to({ angle: 6, y: '-10' }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
+      prof4_wave = game.add.tween(prof4).to({ angle: 6 }, 15000, "Bounce.easeInOut", true, 3000, -1, true);
       console.log('Preparing PlayGame');
       canResize = true;
       start();
@@ -208,8 +205,15 @@ demo.playGame.prototype = {
 
 
     if (showControls) {
-      upKeyX = game.world.centerX;
-      upKeyY = 465;
+
+      upKeyX = centerX;
+      upKeyY = gameHeight * .8;
+
+      if (userDevice == "Tablet" && tabletOrientation == 'Landscape') {
+        upKeyX = gameWidth * .8;
+        upKeyY = gameHeight * .7;
+        console.log('tablet land')
+      }
 
       buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
       buttonUp.anchor.setTo(.5, .5);
@@ -257,31 +261,79 @@ demo.playGame.prototype = {
     movAlert.scale.setTo(.4);
     movAlert.alpha = 0;
 
+    function readDeviceOrientationGame() {
+
+      if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
+        // Landscape
+        refreshCoordinates()
+        tabletOrientation = 'Landscape';
+      } else if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) == 0) {
+        // Portrait
+        refreshCoordinates()
+        tabletOrientation = 'Portrait';
+      }
+    }
+
+    window.onorientationchange = readDeviceOrientationGame;
+
   },
   resize: function () {
 
-    gameWidth = game.world.width;
-    gameHeight = game.world.height;
-    centerX = game.world.centerX;
-    centerY = game.world.centerY;
+    refreshCoordinates();
+
+    backButton.x = gameWidth * .10;
+    backButton.y = gameHeight * .75;
 
     if (canResize) {
-
       algaRight.x = gameWidth - 90;
+      algaRight.y = gameHeight + 5;
       prof1.x = centerX;
+      prof1.y = centerY;
       prof2.x = centerX;
+      prof2.y = centerY;
       prof3.x = centerX;
+      prof3.y = centerY;
       prof4.x = centerX;
-      aciertos.x = gameWidth * .70;
+      prof4.y = centerY;
 
+      aciertos.x = gameWidth * .70;
+    }
+
+    if (showControls && userDevice == "Smartpone") {
       buttonUp.x = centerX;
       buttonDown.x = centerX;
       buttonLeft.x = centerX - 71;
       buttonRight.x = centerX + 71;
-
     }
 
-  document.getElementById('debug').innerHTML = gameWidth;
+    if (showControls && userDevice == "Tablet") {
+
+      if (tabletOrientation == "Portrait") {
+        upKeyX = game.world.centerX;
+        upKeyY = game.world.height * .8;
+        buttonUp.x = upKeyX;
+        buttonUp.y = upKeyY;
+        buttonDown.x = upKeyX;
+        buttonDown.y = upKeyY + 71;
+        buttonLeft.x = upKeyX - 71;
+        buttonLeft.y = upKeyY + 71;
+        buttonRight.x = upKeyX + 71;
+        buttonRight.y = upKeyY + 71
+      } else if (tabletOrientation == "Landscape") {
+        upKeyX = gameWidth * .8;
+        upKeyY = gameHeight * .7;
+        buttonUp.x = upKeyX;
+        buttonUp.y = upKeyY;
+        buttonDown.x = upKeyX;
+        buttonDown.y = upKeyY + 71;
+        buttonLeft.x = upKeyX - 71;
+        buttonLeft.y = upKeyY + 71;
+        buttonRight.x = upKeyX + 71;
+        buttonRight.y = upKeyY + 71;
+      }
+    }
+
+    document.getElementById('debug').innerHTML = gameWidth;
 
   },
   update: function () {
@@ -295,6 +347,7 @@ demo.playGame.prototype = {
 
   }
 };
+
 
 function startDataColector() {
   levelStats.cardId = index; //corregir
@@ -488,3 +541,8 @@ elem.animations.play(animName, 10, true);
 // }
 
 // window.onorientationchange = readDeviceOrientation;
+
+
+/**
+ * CORREGIR LINEA 229
+ */

@@ -12,6 +12,7 @@ if (userDevice === "Smartphone") {
 	showControls = true;
 	gameX = 400;
 	gamey = 500;
+	alert('smartphone')
 	showRotate();
 }
 if(userDevice === 'Tablet'){

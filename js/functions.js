@@ -5,6 +5,9 @@ function changeState(i, stateName) {
 
 function backToMenu() {
     changeState(null, 'menu');
+    console.log(`Back to menu\n` +
+        `Game width: ${gameWidth} Game height: ${gameHeight}\n` +
+        `tablet orientation: ${tabletOrientation}`)
 };
 
 function moveWithArrows() {
@@ -82,13 +85,13 @@ function changeColor(color) {
         fish5.animations.play('f5_blue');
         fish6.animations.play('f6_blue');
     }
-    else{
+    else {
         fish1.animations.play('f1_orange');
         fish2.animations.play('f2_orange');
         fish3.animations.play('f3_orange');
         fish4.animations.play('f4_orange');
         fish5.animations.play('f5_orange');
-        fish6.animations.play('f6_orange');        
+        fish6.animations.play('f6_orange');
     }
 }
 
@@ -113,19 +116,39 @@ function showRightMovements(idx) {
     }
 }
 
+function resizeCanvas() {
+
+    if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
+        // Landscape
+        game.renderer.resize(800, 430);
+        tabletOrientation = 'Landscape';
+    } else {
+        // Portrait
+        game.renderer.resize(800, 600);
+        tabletOrientation = 'Portrait';
+    }
+}
+
+function refreshCoordinates(){
+    centerX = game.world.width / 2;
+    centerY = game.world.height / 2;
+    gameWidth = game.world.width;
+    gameHeight = game.world.height;
+  };
+
+
 ///previene al usuario de abandonar la página
-// window.addEventListener("beforeunload", function (e) {
-//     var confirmationMessage = "\o/";
+window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = "\o/";
 
-//     e.returnValue = confirmationMessage;     // Gecko and Trident
-//     return confirmationMessage;              // Gecko and WebKit
-//   });
+    e.returnValue = confirmationMessage;     // Gecko and Trident
+    return confirmationMessage;              // Gecko and WebKit
+});
 
-// window.addEventListener("beforeunload", function (e) {
-//     var confirmationMessage = 'It looks like you have been editing something. '
-//         + 'If you leave before saving, your changes will be lost.';
+window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = 'It looks like you have been editing something. '
+        + 'If you leave before saving, your changes will be lost.';
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
 
-//     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-
-//     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-// });
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});

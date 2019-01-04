@@ -29,10 +29,7 @@ demo.instructions.prototype = {
     },
     create: function () {
 
-        centerX = game.world.width / 2;
-        centerY = game.world.height / 2;
-        gameWidth = game.world.width;
-        gameHeight = game.world.height;
+        refreshCoordinates();
 
         this.upKeyOriginX = gameWidth / 3;
         this.upkeyOriginY = 340;
@@ -135,14 +132,14 @@ demo.instructions.prototype = {
             this.demoButton.scale.setTo(.7);
 
         } else {
-            this.homeButton = this.add.button(centerX*.666, 550, 'homeButton', backToMenu);
+            this.homeButton = this.add.button(centerX * .666, 550, 'homeButton', backToMenu);
             this.homeButton.scale.setTo(.8);
-            
-            this.demoButton = this.add.button(centerX*1.333, 550, 'homeButton', goDemoMode);
+
+            this.demoButton = this.add.button(centerX * 1.333, 550, 'homeButton', goDemoMode);
             this.demoButton.scale.setTo(.8);
-     
-            this.demoBtnTxt = this.add.text(centerX*1.333, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
-            this.homeBtnTxt = this.add.text(centerX*.666, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
+
+            this.demoBtnTxt = this.add.text(centerX * 1.333, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
+            this.homeBtnTxt = this.add.text(centerX * .666, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
         }
         this.homeButton.anchor.setTo(.5, .5);
 
@@ -353,10 +350,7 @@ demo.instructions.prototype = {
 
     },
     resize: function () {
-        centerX = game.world.width / 2;
-        centerY = game.world.height / 2;
-        gameWidth = game.world.width;
-        gameHeight = game.world.height;
+        refreshCoordinates();
 
         this.background.x = centerX;
 
@@ -366,11 +360,11 @@ demo.instructions.prototype = {
         this.siguiente.x = gameWidth * .9;
         this.anterior.x = gameWidth * .1;
 
-        this.homeBtnTxt.x = centerX*.666;
-        this.demoBtnTxt.x = centerX*1.333;
+        this.homeBtnTxt.x = centerX * .666;
+        this.demoBtnTxt.x = centerX * 1.333;
 
-        this.homeButton.x = centerX*.666;
-        this.demoButton.x = centerX*1.333;
+        this.homeButton.x = centerX * .666;
+        this.demoButton.x = centerX * 1.333;
 
     }
 }

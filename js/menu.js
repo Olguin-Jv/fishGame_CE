@@ -7,6 +7,8 @@ var centerX,
   gameWidth,
   gameHeight;
 
+var tabletOrientation;
+
 
 demo.menu = function () { };
 demo.menu.prototype = {
@@ -16,11 +18,19 @@ demo.menu.prototype = {
   },
   create: function () {
 
+    refreshCoordinates()
+
+    function readDeviceOrientationMenu() {
+      resizeCanvas();
+      refreshCoordinates()
+    }
+
     if (userDevice == "Smartphone") {
       game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     }
     if (userDevice != "Smartphone") {
       game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      resizeCanvas();
     }
 
     if (game.renderType !== Phaser.WEBGL) {
@@ -28,12 +38,8 @@ demo.menu.prototype = {
       alert('Este dispositivo no soporta WebGL. Se recomienda jugar en portrait mode')
     };
 
-    readDeviceOrientation() //pasar al 
+    window.onorientationchange = readDeviceOrientationMenu;
 
-    centerX = game.world.width / 2;
-    centerY = game.world.height / 2;
-    gameWidth = game.world.width;
-    gameHeight = game.world.height;
 
     this.bkg = this.add.image(centerX, centerY, 'background');
     this.bkg.anchor.setTo(.5);
@@ -58,11 +64,7 @@ demo.menu.prototype = {
   },
   resize: function () {
 
-
-    centerX = game.world.width / 2;
-    centerY = game.world.height / 2;
-    gameWidth = game.world.width;
-    gameHeight = game.world.height;
+    refreshCoordinates();
 
     this.bkg.x = centerX;
     this.bkg.y = centerY;
@@ -82,31 +84,8 @@ demo.menu.prototype = {
     this.tutorialTxt.x = centerX;
     this.tutorialTxt.y = centerY + 50;
 
-
-    function readDeviceOrientation() {
-
-      if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
-        // Landscape
-        game.renderer.resize(600, 430)
-        centerX = game.world.width / 2;
-        centerY = game.world.height / 2;
-        gameWidth = game.world.width;
-        gameHeight = game.world.height;
-      } else {
-        // Portrait
-        game.renderer.resize(800, 600);
-        centerX = game.world.width / 2;
-        centerY = game.world.height / 2;
-        gameWidth = game.world.width;
-        gameHeight = game.world.height;
-      }
-    }
-
-    window.onorientationchange = readDeviceOrientation;
-
   }
 };
-
 
 function startGame() {
   changeState(null, 'playGame');
@@ -128,18 +107,3 @@ function startTutorial() {
   console.log("//////////////////////////////////////////////////////");
   console.log("Scene changed to: Instructions");
 }
-
-function readDeviceOrientation() {
-
-  if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
-    // Landscape
-    game.renderer.resize(800, 430)
-  } else {
-    // Portrait
-    game.renderer.resize(800, 600)
-  }
-}
-
-/**
- * acomodar todos los elementos para el resize en Y
- */
