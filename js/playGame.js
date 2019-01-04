@@ -8,13 +8,9 @@ var prof1, prof1_wave,
   canResize = false;
 
 //sprites
-var arrow,
-  fish1,
-  fish2,
-  fish3,
-  fish4,
-  movAlert;
+var arrow, fish1, fish2, fish3, fish4, movAlert;
 
+//lógica
 var directionOrdered = "none",
   viewDirection,
   rightMovement,
@@ -39,6 +35,7 @@ var txtInfoStyle,
   style,
   txtEndGameStyle;
 
+//teclas en pantalla
 var upKeyX,
   upKeyY,
   buttonUp,
@@ -46,7 +43,7 @@ var upKeyX,
   buttonLeft,
   buttonRight;
 
-
+  
 demo.playGame = function () { };
 
 demo.playGame.prototype = {
@@ -203,7 +200,6 @@ demo.playGame.prototype = {
     backButton.scale.setTo(.6, .6);
     backButton.anchor.setTo(0.5, 0.5);
 
-
     if (showControls) {
 
       upKeyX = centerX;
@@ -334,6 +330,8 @@ demo.playGame.prototype = {
         buttonRight.y = upKeyY + 71;
       }
     }
+
+
 
     document.getElementById('debug').innerHTML = gameWidth;
 
