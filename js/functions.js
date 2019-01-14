@@ -112,18 +112,16 @@ function showStats(key) { //funcion para mostrar información al jugador en el m
 function showRightMovements(idx) {
     console.log('showRightMovements');
     if (gameSettings.showRightMovements) {
-        aciertos.setText(`Has acertado: ${cantAciertos} de ${idx}`)
+        aciertos.setText(`Aciertos ${cantAciertos}/${idx}`)
     }
 }
 
 function resizeCanvas() {
 
     if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) !== 0) {
-        // Landscape
-        game.renderer.resize(800, 430);
+        game.renderer.resize(800, 450);
         tabletOrientation = 'Landscape';
-    } else {
-        // Portrait
+    } else if (userDevice == 'Tablet' && game.renderType === Phaser.WEBGL && Math.abs(window.orientation) == 0){
         game.renderer.resize(800, 600);
         tabletOrientation = 'Portrait';
     }

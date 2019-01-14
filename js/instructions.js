@@ -3,11 +3,10 @@
 demo.instructions = function () {
 
     this.fish;
-    this.titulo = "INSTRUCCIONES";
-    this.txt1 = "Este pez tiene un frente";
-    this.txt1_2 = "y una cola."
-    this.txt2 = "Cada vez que vea el pez azul deberá presionar la flecha indicando hacia donde está el frente.";
-    this.txt3 = "Si aparece el pez Rojo, debera presionar la flecha que indique hacia donde se está moviendo."
+    this.titulo = "Instrucciones";
+    this.txt1 = "Este pez tiene un frente\ny una cola";
+    this.txt2 = "Cada vez que vea el pez azul\ndeberá presionar la flecha indicando\nhacia donde está el frente.";
+    this.txt3 = "Cada vez que vea el pez naranja\ndeberá presionar la flecha indicando\nhacia donde se está moviendo."
 
 };
 
@@ -17,22 +16,42 @@ demo.instructions.prototype = {
     preload: function () {
 
         this.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
-        this.load.image('upKey', gameSettings.upKey);
-        this.load.image('downKey', gameSettings.downKey);
-        this.load.image('leftKey', gameSettings.leftKey);
-        this.load.image('rightKey', gameSettings.rightKey);
-        this.load.image('blueArrow', gameSettings.blueArrow);
+        this.load.image('blue_upKey', gameSettings.blueKeyUp);
+        this.load.image('blue_downKey', gameSettings.blueKeyDown);
+        this.load.image('blue_leftKey', gameSettings.blueKeyLeft);
+        this.load.image('blue_rightKey', gameSettings.blueKeyRight);
+        this.load.image('orange_upKey', gameSettings.orangeKeyUp);
+        this.load.image('orange_downKey', gameSettings.orangeKeyDown);
+        this.load.image('orange_leftKey', gameSettings.orangeKeyLeft);
+        this.load.image('orange_rightKey', gameSettings.orangeKeyRight);
         this.load.image('background', gameSettings.background);
-        this.load.image('button', gameSettings.tutorialArrow);
-        this.load.image('homeButton', './assets/view/button2.png');
+        this.load.image('button', gameSettings.white_arrow);
+        this.load.image('homeButton', gameSettings.btn_blue);
 
     },
     create: function () {
 
-        refreshCoordinates();
+        refreshCoordinates()
 
-        this.upKeyOriginX = gameWidth / 3;
-        this.upkeyOriginY = 340;
+        function readDeviceOrientationMenu() {
+            resizeCanvas();
+            refreshCoordinates();
+        }
+
+        window.onorientationchange = readDeviceOrientationMenu;
+
+        if (userDevice == "Smartphone") {
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
+        if (userDevice != "Smartphone") {
+            game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+            resizeCanvas();
+        }
+
+        if (game.renderType !== Phaser.WEBGL) {
+            showRotate();
+            alert('Este dispositivo no soporta WebGL. Se recomienda jugar en portrait mode')
+        };
 
         this.stage.disableVisibilityChange = true;
 
@@ -41,109 +60,142 @@ demo.instructions.prototype = {
         this.background.anchor.setTo(.5);
         this.bgIn = this.add.tween(this.background).to({ alpha: 1 }, 1000, 'Linear', true, 0, 0, false);
 
-        this.titleStyle = { fontSize: '30px', fontWeight: 'bold', font: 'Lato', fill: '#fff', align: 'center' };
         this.txtStyle = { fontSize: '24px', font: 'Montserrat', fill: '#fff', align: 'left', wordWrap: true, wordWrapWidth: gameWidth * .9 };
         this.buttonStyle = { fontSize: '24px', font: 'Montserrat' };
         this.buttonStyleMobile = { fontSize: '20px', font: 'Montserrat' };
 
-        /*fonts en blanco,
-        font Lato
-        titulo en italica, mayuscula
-        resto en minuscula y regular
-         */
-
-        title = this.add.text(centerX + 40, 45, this.titulo, this.titleStyle);
+        title = this.add.text(centerX, 45, this.titulo, titleStyle);
         title.alpha = 0;
-        title.anchor.setTo(.5);
+        title.anchor.setTo(.5, .4);
         title.resolution = 1;
 
-        texto1 = this.add.text(centerX * .2, 90, this.txt1, this.txtStyle);
-        texto1.alpha = 0;
+        this.siguiente = this.add.button(centerX + 100, 45, 'button', nextPage);
+        this.siguiente.anchor.setTo(.5, .5);
+        this.siguiente.scale.setTo(.3);
 
-        texto1_2 = this.add.text(centerX * .2, 120, this.txt1_2, this.txtStyle);
-        texto1_2.alpha = 0;
+        this.anterior = this.add.button(centerX - 100, 45, 'button', prevPage);
+        this.anterior.anchor.setTo(.5, .5);
+        this.anterior.scale.setTo(.3);
+        this.anterior.angle = -180;
 
-        texto2 = this.add.text(centerX * .2, 90, this.txt2, this.txtStyle);
-        texto2.alpha = 0;
+        if (userDevice == "Smartphone") {
+            texto1 = this.add.text(centerX, centerY * .45, this.txt1, globalStyle);
+            texto1.alpha = 0;
+            texto1.anchor.setTo(.5);
+    
+            texto2 = this.add.text(centerX, centerY * .45, this.txt2, globalStyle);
+            texto2.alpha = 0;
+            texto2.anchor.setTo(.5);
+            texto2.addColor('#272858', 55);
+    
+            texto3 = this.add.text(centerX, centerY * .45, this.txt3, globalStyle);
+            texto3.alpha = 0;
+            texto3.anchor.setTo(.5);
+            texto3.addColor('#E79812', 58);            
+        }
+        if (userDevice !== "Smartphone") {
+            texto1 = this.add.text(centerX * .38, (centerY * .6) + 25, this.txt1, globalStyle);
+            texto1.alpha = 0;
+    
+            texto2 = this.add.text(centerX * .38, centerY * .666, this.txt2, globalStyle);
+            texto2.alpha = 0;
+            texto2.addColor('#272858', 55);
+    
+            texto3 = this.add.text(centerX * .38, centerY * .666, this.txt3, globalStyle);
+            texto3.alpha = 0;
+            texto3.addColor('#E79812', 58);
+        }
 
-        texto3 = this.add.text(centerX * .2, 90, this.txt3, this.txtStyle);
-        texto3.alpha = 0;
 
-        keyUp = this.add.image(this.upKeyOriginX, this.upkeyOriginY, 'upKey');
+        this.upKeyOriginX = centerX * .666;
+        this.upkeyOriginY = gameHeight * .53;
+
+        keyUp = this.add.image(this.upKeyOriginX, this.upkeyOriginY, 'blue_upKey');
         keyUp.anchor.setTo(.5, .5);
-        keyUp.scale.setTo(.7);
+        keyUp.scale.setTo(.5);
         keyUp.alpha = 0;
 
-        keyDown = this.add.image(this.upKeyOriginX, this.upkeyOriginY + 70, 'downKey');
+        keyDown = this.add.image(this.upKeyOriginX, this.upkeyOriginY + 40, 'blue_downKey');
         keyDown.anchor.setTo(.5, .5);
-        keyDown.scale.setTo(.7);
+        keyDown.scale.setTo(.5);
         keyDown.alpha = 0;
 
-        keyLeft = this.add.image(this.upKeyOriginX - 66, this.upkeyOriginY + 70, 'leftKey');
+        keyLeft = this.add.image(this.upKeyOriginX - 40, this.upkeyOriginY + 40, 'blue_leftKey');
         keyLeft.anchor.setTo(.5, .5);
-        keyLeft.scale.setTo(.7);
+        keyLeft.scale.setTo(.5);
         keyLeft.alpha = 0;
 
-        keyRight = this.add.image(this.upKeyOriginX + 66, this.upkeyOriginY + 70, 'rightKey')
+        keyRight = this.add.image(this.upKeyOriginX + 40, this.upkeyOriginY + 40, 'blue_rightKey')
         keyRight.anchor.setTo(.5, .5);
-        keyRight.scale.setTo(.7);
+        keyRight.scale.setTo(.5);
         keyRight.alpha = 0;
 
-        blueArrowUp = this.add.image(game.world.centerX, game.world.centerY - 100, 'blueArrow');
-        blueArrowUp.anchor.setTo(.5, .5);
-        blueArrowUp.scale.setTo(.05);
-        blueArrowUp.angle = 90;
-        blueArrowUp.alpha = 0;
+        // blueArrowUp = this.add.image(gameWidth * .73, game.world.centerY - 100, 'blueArrow');
+        // blueArrowUp.anchor.setTo(.5, .5);
+        // blueArrowUp.scale.setTo(.05);
+        // blueArrowUp.angle = 90;
+        // blueArrowUp.alpha = 0;
 
-        blueArrowDown = game.add.image(game.world.centerX, game.world.centerY + 130, 'blueArrow')
-        blueArrowDown.anchor.setTo(.5, .5);
-        blueArrowDown.scale.setTo(.05);
-        blueArrowDown.angle = -90;
-        blueArrowDown.alpha = 0;
+        // blueArrowDown = game.add.image(gameWidth * .73, game.world.centerY + 130, 'blueArrow')
+        // blueArrowDown.anchor.setTo(.5, .5);
+        // blueArrowDown.scale.setTo(.05);
+        // blueArrowDown.angle = -90;
+        // blueArrowDown.alpha = 0;
 
-        fish = this.add.sprite(game.world.centerX + 25, game.world.centerY + 20, 'fish');
+        orange_keyUp = this.add.image(this.upKeyOriginX, this.upkeyOriginY, 'orange_upKey');
+        orange_keyUp.anchor.setTo(.5, .5);
+        orange_keyUp.scale.setTo(.5);
+        orange_keyUp.alpha = 0;
+
+        orange_keyDown = this.add.image(this.upKeyOriginX, this.upkeyOriginY + 40, 'orange_downKey');
+        orange_keyDown.anchor.setTo(.5, .5);
+        orange_keyDown.scale.setTo(.5);
+        orange_keyDown.alpha = 0;
+
+        orange_keyLeft = this.add.image(this.upKeyOriginX - 40, this.upkeyOriginY + 40, 'orange_leftKey');
+        orange_keyLeft.anchor.setTo(.5, .5);
+        orange_keyLeft.scale.setTo(.5);
+        orange_keyLeft.alpha = 0;
+
+        orange_keyRight = this.add.image(this.upKeyOriginX + 40, this.upkeyOriginY + 40, 'orange_rightKey')
+        orange_keyRight.anchor.setTo(.5, .5);
+        orange_keyRight.scale.setTo(.5);
+        orange_keyRight.alpha = 0;
+
+        fish = this.add.sprite(gameWidth * .73, game.world.centerY, 'fish');
         fish.anchor.setTo(.5, .5);
         fish.scale.setTo(.5);
-        fish.alpha = 0;
+        fish.alpha = 1;
 
-        fish2 = this.add.sprite(gameWidth * .666, game.world.centerY + 20, 'fish');
+        fish2 = this.add.sprite(gameWidth * .73, game.world.centerY, 'fish');
         fish2.anchor.setTo(.5, .5);
         fish2.scale.setTo(.5);
         fish2.alpha = 0;
         fish2.frame = 1;
 
-        this.siguiente = this.add.button(gameWidth * .9, 550, 'button', nextPage);
-        this.siguiente.anchor.setTo(.5, .5);
-        this.siguiente.scale.setTo(.3);
-
-        this.anterior = this.add.button(gameWidth * .1, 550, 'button', prevPage);
-        this.anterior.anchor.setTo(.5, .5);
-        this.anterior.scale.setTo(.3);
-        this.anterior.angle = -180;
 
         //cambio la posición de los botones según el dispositivo    
         if (userDevice == "Smartphone") {
             this.homeButton = this.add.button(centerX, gameHeight - 25, 'homeButton', backToMenu);
-            this.add.text(centerX, gameHeight - 25, 'Volver al menú', this.buttonStyleMobile).anchor.setTo(.5, .5);
+            this.homeButtonTxt = this.add.text(centerX, gameHeight - 25, 'Volver al menú', globalStyle).anchor.setTo(.5, .5);
             this.homeButton.scale.setTo(.7);
 
             this.demoButton = this.add.button(centerX, gameHeight - 75, 'homeButton', goDemoMode);
-            this.add.text(centerX, gameHeight - 75, 'Jugar prueba', this.buttonStyleMobile).anchor.setTo(.5, .5)
+            this.demoButtonTxt = this.add.text(centerX, gameHeight - 75, 'Jugar prueba', globalStyle).anchor.setTo(.5, .5)
             this.demoButton.scale.setTo(.7);
 
         } else {
-            this.homeButton = this.add.button(centerX * .666, 550, 'homeButton', backToMenu);
+            this.homeButton = this.add.button(centerX * .666, gameHeight - 50, 'homeButton', backToMenu);
             this.homeButton.scale.setTo(.8);
 
-            this.demoButton = this.add.button(centerX * 1.333, 550, 'homeButton', goDemoMode);
+            this.demoButton = this.add.button(centerX * 1.333, gameHeight - 50, 'homeButton', goDemoMode);
             this.demoButton.scale.setTo(.8);
 
-            this.demoBtnTxt = this.add.text(centerX * 1.333, 550, 'Jugar prueba', this.buttonStyle).anchor.setTo(.5, .5)
-            this.homeBtnTxt = this.add.text(centerX * .666, 550, 'Volver al menú', this.buttonStyle).anchor.setTo(.5, .5);
+            this.homeButtonTxt = this.add.text(centerX * 1.333, gameHeight - 50, 'Jugar prueba', globalStyle).anchor.setTo(.5, .5)
+            this.demoButtonTxt = this.add.text(centerX * .666, gameHeight - 50, 'Volver al menú', globalStyle).anchor.setTo(.5, .5);
         }
-        this.homeButton.anchor.setTo(.5, .5);
-
-        this.demoButton.anchor.setTo(.5, .5);
+        this.homeButton.anchor.setTo(.5, .55);
+        this.demoButton.anchor.setTo(.5, .55);
 
 
 
@@ -163,15 +215,10 @@ demo.instructions.prototype = {
                 case 2:
                     txt1_in.start();
                     txt1_in.resume();
-                    txt1_2_in.start();
-                    txt1_2_in.resume();
-                    moveLeft(fish)
-                    blueArrowDown.x -= 25;
-                    blueArrowUp.x -= 25;
-                    blueArrowDown_In.start();
-                    blueArrowDown_In.resume();
-                    blueArrowUp_In.start();
-                    blueArrowUp_In.resume();
+                    // blueArrowDown_In.start();
+                    // blueArrowDown_In.resume();
+                    // blueArrowUp_In.start();
+                    // blueArrowUp_In.resume();
                     fadeOut(texto2);
                     fadeOut(keyUp);
                     fadeOut(keyDown);
@@ -187,12 +234,23 @@ demo.instructions.prototype = {
                     upKeyPressed.start();
                     upKeyPressed.resume();
 
+                    fadeOut(orange_keyUp);
+                    fadeOut(orange_keyDown);
+                    fadeOut(orange_keyLeft);
+                    fadeOut(orange_keyRight);
+
                     fadeIn(fish);
                     orangeFishToRight.pause();
                     orangeFishOut.pause();
                     orangeFishIn.pause();
                     fadeOutFish2.start();
                     fadeOut(texto3);
+
+                    fadeIn(texto2, 0);
+                    fadeIn(keyUp, 0);
+                    fadeIn(keyDown, 0);
+                    fadeIn(keyLeft, 0);
+                    fadeIn(keyRight, 0);
 
                     pageNum--;
                     break;
@@ -219,16 +277,12 @@ demo.instructions.prototype = {
                 case 1:
 
                     txt1_in.pause();
-                    txt1_2_in.pause();
                     fadeOut(texto1);
-                    fadeOut(texto1_2);
 
-                    moveRight(fish);
-
-                    blueArrowUp_In.pause();
-                    fadeOut(blueArrowUp)
-                    blueArrowDown_In.pause();
-                    fadeOut(blueArrowDown);
+                    // blueArrowUp_In.pause();
+                    // fadeOut(blueArrowUp)
+                    // blueArrowDown_In.pause();
+                    // fadeOut(blueArrowDown);
 
                     fadeIn(texto2, 0);
                     fadeIn(keyUp, 0);
@@ -243,6 +297,16 @@ demo.instructions.prototype = {
                     break;
                 case 2:
                     fadeOut(texto2);
+                    fadeOut(keyUp);
+                    fadeOut(keyDown);
+                    fadeOut(keyLeft);
+                    fadeOut(keyRight);
+
+                    fadeIn(orange_keyUp, 0);
+                    fadeIn(orange_keyDown, 0);
+                    fadeIn(orange_keyLeft, 0);
+                    fadeIn(orange_keyRight, 0);
+
 
                     fadeOut(fish);
                     upKeyPressed.pause();
@@ -267,13 +331,10 @@ demo.instructions.prototype = {
         }
 
 
-        var txt1_in = game.add.tween(texto1).to({ alpha: 1, x: '-25' }, 500, 'Linear', false, 500, 0, false);
-        var txt1_2_in = game.add.tween(texto1_2).to({ alpha: 1, x: '-25' }, 500, 'Linear', false, 3500, 0, false);
+        var txt1_in = game.add.tween(texto1).to({ alpha: 1 }, 500, 'Linear', false, 500, 0, false);
 
-        var blueArrowUp_In = game.add.tween(blueArrowUp).to({ alpha: 1 }, 750, 'Linear', false, 500, 0, true);
-        var blueArrowDown_In = game.add.tween(blueArrowDown).to({ alpha: 1 }, 750, 'Linear', false, 3500, 0, true);
-
-
+        // var blueArrowUp_In = game.add.tween(blueArrowUp).to({ alpha: 1 }, 750, 'Linear', false, 500, 0, true);
+        // var blueArrowDown_In = game.add.tween(blueArrowDown).to({ alpha: 1 }, 750, 'Linear', false, 3500, 0, true);
 
         function pulse(elem, delay) {
             var elemPulse = game.add.tween(elem).to({ alpha: 1 }, 750, 'Linear', true, delay, 0, true);
@@ -283,23 +344,15 @@ demo.instructions.prototype = {
             var elemPressed = game.add.tween(elem.scale).to({ x: scaleFx, y: scaleFx }, 750, 'Linear', true, delay, -1, true);
         };
 
-        var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
-        var rightKeyPressed = game.add.tween(keyRight.scale).to({ x: .6, y: .6 }, 750, 'Linear', false, 0, -1, true);
+        var upKeyPressed = game.add.tween(keyUp.scale).to({ x: .45, y: .45 }, 750, 'Linear', false, 0, -1, true);
+        var rightKeyPressed = game.add.tween(orange_keyRight.scale).to({ x: .45, y: .45 }, 750, 'Linear', true, 0, -1, true);
 
         function fadeIn(elem, delay) {
-            var elemIn = game.add.tween(elem).to({ alpha: 1, x: '-25' }, 500, 'Linear', true, delay, 0, false);
+            var elemIn = game.add.tween(elem).to({ alpha: 1 }, 500, 'Linear', true, delay, 0, false);
         }
 
         function fadeOut(elem) {
-            var elemOut = game.add.tween(elem).to({ alpha: 0, x: '+25' }, 500, 'Linear', true, 0, 0, false);
-        }
-
-        function moveLeft(elem) {
-            var toLeft = game.add.tween(elem).to({ x: centerX }, 500, 'Linear', true, 0, 0, false);
-        }
-
-        function moveRight(elem) {
-            var toRight = game.add.tween(elem).to({ x: gameWidth * .666 }, 500, 'Linear', true, 0, 0, false);
+            var elemOut = game.add.tween(elem).to({ alpha: 0 }, 500, 'Linear', true, 0, 0, false);
         }
 
         var fadeOutFish2 = game.add.tween(fish2).to({ alpha: 0, x: '+25' }, 250, 'Linear', false, 0, 0, false);
@@ -344,27 +397,63 @@ demo.instructions.prototype = {
         fadeIn(title, 0);
         fadeIn(fish, 0);
         txt1_in.start();
-        txt1_2_in.start();
-        blueArrowUp_In.start();
-        blueArrowDown_In.start();
+        // blueArrowUp_In.start();
+        // blueArrowDown_In.start();
 
     },
     resize: function () {
         refreshCoordinates();
 
         this.background.x = centerX;
+        this.background.y = centerY;
 
-        blueArrowUp.x = centerX;
-        blueArrowDown = centerY;
+        title.x = centerX;
 
-        this.siguiente.x = gameWidth * .9;
-        this.anterior.x = gameWidth * .1;
+        fish.x = gameWidth * .73;
+        fish.y = centerY;
 
-        this.homeBtnTxt.x = centerX * .666;
-        this.demoBtnTxt.x = centerX * 1.333;
+        fish2.x = gameWidth * .73;
+        fish2.y = centerY;
 
-        this.homeButton.x = centerX * .666;
-        this.demoButton.x = centerX * 1.333;
+        if (userDevice == "Smartphone") {
+            texto1.x = centerX;
+            texto1.y = centerY * .45;
+    
+            texto2.x = centerX;
+            texto2.y = centerY * .45;
+    
+            texto3.x = centerX;
+            texto3.y = centerY * .45;            
+        }
+        if (userDevice !== "Smartphone") {
+            texto1.x = centerX * .38;
+            texto1.y = (centerY * .6) + 25;
+    
+            texto2.x = centerX * .38;
+            texto2.y = (centerY * .6) + 25;
+    
+            texto3.x = centerX * .38;
+            texto3.y = (centerY * .6) + 25;        
+        }
+
+
+        this.upKeyOriginX = gameWidth / 3;
+        this.upkeyOriginY = gameHeight * .666;
+
+        this.siguiente.x = centerX + 100;
+        this.anterior.x = centerX - 100;
+
+        if (userDevice !== "Smartphone") {
+            this.homeButton.x = centerX * .666;
+            this.homeButton.y = gameHeight - 50;
+            this.homeButtonTxt.x = centerX * .666;
+            this.homeButtonTxt.y = gameHeight - 50;
+
+            this.demoButton.x = centerX * 1.333;
+            this.demoButton.y = gameHeight - 50;
+            this.demoButtonTxt.x = centerX * 1.333;
+            this.demoButtonTxt.y = gameHeight - 50;
+        }
 
     }
 }

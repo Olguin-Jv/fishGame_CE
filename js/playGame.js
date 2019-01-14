@@ -31,8 +31,7 @@ var cardNumber,
   endGameTXT;
 
 //text style
-var txtInfoStyle,
-  style,
+var style,
   txtEndGameStyle;
 
 //teclas en pantalla
@@ -43,7 +42,9 @@ var upKeyX,
   buttonLeft,
   buttonRight;
 
-  
+// ui
+var uiVisible;
+
 demo.playGame = function () { };
 
 demo.playGame.prototype = {
@@ -55,12 +56,12 @@ demo.playGame.prototype = {
     game.load.image('prof2', './assets/view/profundidad2.png');
     game.load.image('prof3', './assets/view/profundidad3.png');
     game.load.image('prof4', './assets/view/profundidad4.png');
-    game.load.image('backButton', gameSettings.backButton);
+    game.load.image('backButton', gameSettings.btn_blue);
 
-    game.load.image('upKey', gameSettings.upKey);
-    game.load.image('downKey', gameSettings.downKey);
-    game.load.image('leftKey', gameSettings.leftKey);
-    game.load.image('rightKey', gameSettings.rightKey);
+    game.load.image('downKey', gameSettings.blueKeyDown);
+    game.load.image('leftKey', gameSettings.blueKeyLeft);
+    game.load.image('rightKey', gameSettings.blueKeyRight);
+    game.load.image('gameBkg', gameSettings.gameBackground);
 
     game.load.spritesheet('movementAlert', gameSettings.movementAlert, 320, 332, 2);
     game.load.spritesheet('fish', gameSettings.fishSprite, 110, 347, 2);
@@ -75,7 +76,33 @@ demo.playGame.prototype = {
 
     this.stage.disableVisibilityChange = true;
 
-    refreshCoordinates();
+    refreshCoordinates()
+
+    function readDeviceOrientationMenu() {
+      resizeCanvas();
+      refreshCoordinates();
+    }
+
+    window.onorientationchange = readDeviceOrientationMenu;
+
+    if (userDevice == "Smartphone") {
+      game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    }
+    if (userDevice != "Smartphone") {
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      resizeCanvas();
+    }
+
+    if (game.renderType !== Phaser.WEBGL) {
+      showRotate();
+      alert('Este dispositivo no soporta WebGL. Se recomienda jugar en portrait mode')
+    };
+
+    uiVisible = false;
+
+    this.gameBkg = this.add.image(centerX, centerY, 'gameBkg');
+    this.gameBkg.alpha = .7;
+    this.gameBkg.anchor.setTo(.5);
 
     algaLeft = game.add.image(90, 0, 'algaLeft');
     algaLeft.anchor.setTo(0.5, 0);
@@ -107,7 +134,7 @@ demo.playGame.prototype = {
     prof1In.onComplete.add(prof1_move, this);
     prof1In.start();
     function prof1_move() {
-      prof1_wave = game.add.tween(prof1).to({ angle: -6}, 15000, "Bounce.easeInOut", true, 0, -1, true)
+      prof1_wave = game.add.tween(prof1).to({ angle: -6 }, 15000, "Bounce.easeInOut", true, 0, -1, true)
     }
 
     prof2 = game.add.image(centerX, centerY, 'prof2');
@@ -117,7 +144,7 @@ demo.playGame.prototype = {
     prof2In.onComplete.add(prof2_move, this);
     prof2In.start();
     function prof2_move() {
-      prof2_wave = game.add.tween(prof2).to({ angle: -7}, 15000, "Bounce.easeInOut", true, 1000, -1, true)
+      prof2_wave = game.add.tween(prof2).to({ angle: -7 }, 15000, "Bounce.easeInOut", true, 1000, -1, true)
     }
 
     prof3 = game.add.image(centerX, centerY, 'prof3');
@@ -127,7 +154,7 @@ demo.playGame.prototype = {
     prof3In.onComplete.add(prof3_move, this);
     prof3In.start();
     function prof3_move() {
-      prof3_wave = game.add.tween(prof3).to({ angle: -6}, 15000, "Bounce.easeInOut", true, 2000, -1, true)
+      prof3_wave = game.add.tween(prof3).to({ angle: -6 }, 15000, "Bounce.easeInOut", true, 2000, -1, true)
     }
 
     prof4 = game.add.image(centerX, centerY, 'prof4');
@@ -186,9 +213,9 @@ demo.playGame.prototype = {
     fish6.anchor.setTo(.5, .5);
     fish6.scale.setTo(.4);
 
-    cardNumber = game.add.text(16, 16, '', txtInfoStyle);
-    aciertos = game.add.text(gameWidth * .65, 16, '', txtInfoStyle);
-    movementChecker = game.add.text(16, 40, '', txtInfoStyle);
+    cardNumber = game.add.text(gameWidth * .08, gameHeight * .055, '', globalStyle);
+    movementChecker = game.add.text(gameWidth * .08, gameHeight * .1, '', globalStyle);
+    aciertos = game.add.text(gameWidth * .73, gameHeight * .055, '', globalStyle);
 
     endGameTXT = game.add.text(game.world.centerX, -300, 'Fin del juego', txtEndGameStyle);
     endGameTXT.anchor.setTo(.5, .5);
@@ -196,9 +223,10 @@ demo.playGame.prototype = {
     endGameTXT.strokeThickness = 6;
     endGameTXT.alpha = 0;
 
-    backButton = game.add.button(gameWidth * .10, gameHeight * .75, 'backButton', backToMenu);
-    backButton.scale.setTo(.6, .6);
-    backButton.anchor.setTo(0.5, 0.5);
+    backButton = game.add.button(gameWidth * .2, gameHeight * .8, 'backButton', backToMenu);
+    backButton.anchor.setTo(.5);
+    backButtonTxt = this.add.text(gameWidth * .2, gameHeight * .8, 'Volver al menú', globalStyle);
+    backButtonTxt.anchor.setTo(.5, .4);
 
     if (showControls) {
 
@@ -211,7 +239,8 @@ demo.playGame.prototype = {
         console.log('tablet land')
       }
 
-      buttonUp = this.add.button(upKeyX, upKeyY, 'upKey', pressUp);
+      buttonUp = this.add.button(upKeyX, upKeyY, 'downKey', pressUp);
+      buttonUp.angle = 180;
       buttonUp.anchor.setTo(.5, .5);
       buttonUp.scale.setTo(.7);
 
@@ -252,6 +281,8 @@ demo.playGame.prototype = {
     var keyRight = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     keyRight.onDown.add(pressRight, this);
 
+
+
     movAlert = game.add.sprite(centerX, centerY, 'movementAlert');
     movAlert.anchor.setTo(.5, .5);
     movAlert.scale.setTo(.4);
@@ -282,6 +313,15 @@ demo.playGame.prototype = {
     backButton.x = gameWidth * .10;
     backButton.y = gameHeight * .75;
 
+    this.gameBkg.x = centerX;
+    this.gameBkg.y = centerY;
+
+    backButton.x = gameWidth * .2;
+    backButton.y = gameHeight * .8;
+    backButtonTxt.x = gameWidth * .2;
+    backButtonTxt.y = gameHeight * .8;
+
+    //espera a poder hacer rezise al fondo
     if (canResize) {
       algaRight.x = gameWidth - 90;
       algaRight.y = gameHeight + 5;
@@ -293,9 +333,19 @@ demo.playGame.prototype = {
       prof3.y = centerY;
       prof4.x = centerX;
       prof4.y = centerY;
-
-      aciertos.x = gameWidth * .70;
     }
+
+    //espera a hacer resize a la interfaz
+
+    if (uiVisible) {
+      cardNumber.x = gameWidth * .08;
+      cardNumber.y = gameHeight * .055;
+      movementChecker.x = gameWidth * .08;
+      movementChecker.y = gameHeight * .1;
+      aciertos.x = gameWidth * .73;
+      aciertos.y = gameHeight * .055
+    }
+
 
     if (showControls && userDevice == "Smartpone") {
       buttonUp.x = centerX;
@@ -417,7 +467,7 @@ function fishFadeOut(elem) {
 }
 
 function showCardNumber(idx) {
-  cardNumber.setText(`Carta n°${++idx} de ${levelLenght}`);
+  cardNumber.setText(`Carta N ${++idx} de ${levelLenght}`);
 }
 
 function start() {
@@ -434,6 +484,7 @@ function start() {
     canMove = true;
     refreshMovement(); //actualiza los datos de movimientos
     showCardNumber(index);
+    uiVisible = true;
     changeColor(testLevel[index].color);
     drawFishes(); //center fishes
     startDataColector();

@@ -12,7 +12,6 @@ if (userDevice === "Smartphone") {
 	showControls = true;
 	gameX = 400;
 	gamey = 500;
-	alert('smartphone')
 	showRotate();
 }
 if(userDevice === 'Tablet'){
@@ -43,16 +42,31 @@ var gameSettings = {
 	fishDemo: './assets/player/fish_spritesheet.png',
 	fishHeight: 110,
 	fishWidth: 347,
+	//UI
+	btn_orange: './assets/view/btn_orange.png',
+	btn_blue: './assets/view/btn_blue.png',
 	backButton: './assets/view/back-button.png',
+	white_arrow: './assets/view/white_arrow.png',
 	upKey: './assets/view/upKey.png',
 	downKey: './assets/view/downKey.png',
 	leftKey: './assets/view/leftKey.png',
 	rightKey: './assets/view/rightKey.png',
 	blueArrow: './assets/view/blueArrow.png',
-	background: './assets/view/background.jpg',
+	background: './assets/view/fullBkg.jpg',
+	gameBackground: './assets/view/gameBkg.jpg',
 	tutorialArrow: './assets/view/arrowInfo.png',
 	blueButton: './assets/view/button2.png',
 	movementAlert: './assets/view/01_640x332.png',
+	//key buttons
+	blueKeyUp: './assets/view/blueKeyUp.png',
+	blueKeyDown: './assets/view/blueKeyDown.png',
+	blueKeyLeft: './assets/view/blueKeyLeft.png',
+	blueKeyRight: './assets/view/blueKeyRight.png',
+	orangeKeyUp: './assets/view/orangeKeyUp.png',
+	orangeKeyDown: './assets/view/orangeKeyDown.png',
+	orangeKeyLeft: './assets/view/orangeKeyLeft.png',
+	orangeKeyRight: './assets/view/orangeKeyRight.png',
+	//GAME SETTINGS
 	velocity: 1,
 	gameWidth: 800,
 	gameHeight: 600
